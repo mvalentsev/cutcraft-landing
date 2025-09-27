@@ -25,6 +25,7 @@ body {
 }
 
 .container {
+  margin-bottom: 40px;
   max-width: 500px;
   width: 100%;
   padding: 40px;
@@ -148,7 +149,6 @@ body {
 }
 
 .footer {
-  margin-bottom: 40px;
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 0.9rem;
