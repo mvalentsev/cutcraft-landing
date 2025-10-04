@@ -16,43 +16,115 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="logo">🎬</div>
-        <h1 class="title">CutCraft</h1>
-        <p class="description">AI генерация видео и изображений в Telegram</p>
-
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">🎥</div>
-                <h3>Видео</h3>
-                <p>Создание видео с помощью Veo&nbsp;3</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🖼️</div>
-                <h3>Изображения</h3>
-                <p>Генерация изображений с Nano Banana</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">⚡</div>
-                <h3>Быстро</h3>
-                <p>Результат за несколько минут</p>
-            </div>
-        </div>
-
-        <div class="cta-section">
-            <a href="https://t.me/CutCraftBot" class="bot-link">
-                🤖 Открыть @CutCraftBot
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-content">
+            <div class="logo" aria-label="CutCraft Logo">🎬</div>
+            <h1 class="title">CutCraft</h1>
+            <p class="subtitle">Генерируй контент с AI в Telegram</p>
+            <a href="https://t.me/CutCraftBot" class="cta-button" aria-label="Открыть CutCraft бота в Telegram">
+                🤖 Открыть бота
             </a>
-            <p class="qr-info">Или отсканируйте QR-код:</p>
-            <div class="qr-container" id="qrContainer">
-                <img src="./qr-code.png" alt="QR Code for CutCraft Bot" class="qr-code">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card" style="animation-delay: 0.1s">
+                    <div class="feature-icon">💬</div>
+                    <h3>Текст <span class="free-badge">БЕСПЛАТНО</span></h3>
+                    <p>DeepSeek v3.1</p>
+                    <p class="feature-price">0 токенов</p>
+                </div>
+                <div class="feature-card" style="animation-delay: 0.2s">
+                    <div class="feature-icon">🎬</div>
+                    <h3>Видео</h3>
+                    <p>Veo 3 Fast & Quality</p>
+                    <p class="feature-price">от 60 токенов</p>
+                </div>
+                <div class="feature-card" style="animation-delay: 0.3s">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Изображения</h3>
+                    <p>Nano Banana</p>
+                    <p class="feature-price">от 2 токенов</p>
+                </div>
+                <div class="feature-card" style="animation-delay: 0.4s">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Быстро</h3>
+                    <p>Результат за 1-3 минуты</p>
+                    <p class="feature-price">&nbsp;</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="footer">
-            <p>Powered by AI • Made with ❤️</p>
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Прозрачное ценообразование</h2>
+            <p class="section-subtitle">Начни с 100 бесплатными токенами</p>
+            <div class="pricing-table">
+                <div class="pricing-row">
+                    <div class="pricing-label">Текст</div>
+                    <div class="pricing-value">
+                        <span class="free-badge">БЕСПЛАТНО</span>
+                    </div>
+                </div>
+                <div class="pricing-row">
+                    <div class="pricing-label">Изображения</div>
+                    <div class="pricing-value">2-4 токена</div>
+                </div>
+                <div class="pricing-row">
+                    <div class="pricing-label">Видео</div>
+                    <div class="pricing-value">60-250 токенов</div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Как это работает</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">📱</div>
+                    <p class="step-text">Открой бота @CutCraftBot</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">💬</div>
+                    <p class="step-text">Отправь команду /start</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">🎨</div>
+                    <p class="step-text">Создавай контент</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta-section" id="cta">
+        <div class="container">
+            <a href="https://t.me/CutCraftBot" class="cta-button large" aria-label="Открыть CutCraft бота в Telegram">
+                Открыть @CutCraftBot
+            </a>
+            <p class="qr-info">Или отсканируйте QR-код</p>
+            <div class="qr-container">
+                <img src="./qr-code.png" alt="QR Code для CutCraft бота" class="qr-code">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Powered by AI • Made with ❤️</p>
+    </footer>
 
     <script src="./app.js"></script>
 </body>

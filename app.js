@@ -1,76 +1,48 @@
 // Landing Page JavaScript
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🎬 CutCraft Landing Page loaded');
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
 
-  // Add smooth animations
-  const container = document.querySelector('.container');
-  if (container) {
-    container.style.opacity = '0';
-    container.style.transform = 'translateY(20px)';
+  // Observe all sections
+  document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+  });
 
-    setTimeout(() => {
-      container.style.transition = 'all 0.8s ease';
-      container.style.opacity = '1';
-      container.style.transform = 'translateY(0)';
-    }, 100);
-  }
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
 
-  // Add click tracking for bot link
-  const botLink = document.querySelector('.bot-link');
-  if (botLink) {
-    botLink.addEventListener('click', () => {
-      console.log('🤖 Bot link clicked');
-
-      // Add visual feedback
-      botLink.style.transform = 'scale(0.95)';
+  // Copy /start command feature (optional enhancement)
+  const ctaButtons = document.querySelectorAll('.cta-button');
+  ctaButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      // Visual feedback on click
+      button.style.transform = 'scale(0.95)';
       setTimeout(() => {
-        botLink.style.transform = 'scale(1)';
+        button.style.transform = '';
       }, 150);
     });
-  }
-
-  // Add feature hover effects
-  const features = document.querySelectorAll('.feature');
-  features.forEach(feature => {
-    feature.addEventListener('mouseenter', () => {
-      feature.style.transform = 'translateY(-5px)';
-    });
-
-    feature.addEventListener('mouseleave', () => {
-      feature.style.transform = 'translateY(0)';
-    });
   });
 
-  // Add parallax effect on scroll (subtle)
-  let ticking = false;
-  function updateParallax() {
-    const scrolled = window.pageYOffset;
-    const parallax = document.querySelector('.container');
-
-    if (parallax) {
-      const speed = scrolled * 0.1;
-      parallax.style.transform = `translateY(${speed}px)`;
-    }
-
-    ticking = false;
-  }
-
-  function requestTick() {
-    if (!ticking) {
-      requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  }
-
-  window.addEventListener('scroll', requestTick);
+  // Stagger animation for feature cards
+  const featureCards = document.querySelectorAll('.feature-card');
+  featureCards.forEach((card, index) => {
+    card.style.animationDelay = `${index * 0.1}s`;
+  });
 });
-
-// Service Worker registration (for future PWA features)
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    // Register service worker when available
-    // navigator.serviceWorker.register('/sw.js')
-    //   .then(registration => console.log('SW registered'))
-    //   .catch(error => console.log('SW registration failed'));
-  });
-}
