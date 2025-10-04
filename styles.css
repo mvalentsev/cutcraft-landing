@@ -296,7 +296,7 @@ section.visible {
 
 .qr-code {
   width: 250px;
-  height: 250px;
+  /*height: 250px;*/
   border-radius: 10px;
 }
 
