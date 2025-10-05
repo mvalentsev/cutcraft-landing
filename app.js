@@ -1,13 +1,17 @@
+/* eslint-env browser */
 // Landing Page JavaScript
 document.addEventListener('DOMContentLoaded', () => {
   // Intersection Observer for scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.2 });
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
 
   // Observe all sections
   document.querySelectorAll('section').forEach(section => {
@@ -22,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (target) {
         target.scrollIntoView({
           behavior: 'smooth',
-          block: 'start'
+          block: 'start',
         });
       }
     });
@@ -31,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Copy /start command feature (optional enhancement)
   const ctaButtons = document.querySelectorAll('.cta-button');
   ctaButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', () => {
       // Visual feedback on click
       button.style.transform = 'scale(0.95)';
       setTimeout(() => {
