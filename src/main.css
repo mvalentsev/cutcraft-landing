@@ -1,18 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  /* Custom colors from gradient */
+  /* Custom colors */
   --color-primary-start: #667eea;
   --color-primary-end: #764ba2;
   --color-accent: #4CAF50;
   --color-accent-hover: #45a049;
+
+  /* Badge background color (for Pro/Image badges) */
+  --color-badge-secondary: oklch(from var(--color-primary-start) l c h / 0.3);
 
   /* Custom animations */
   --animate-fade-in: fade-in 0.8s ease-out;
   @keyframes fade-in {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(1.25rem);
     }
     to {
       opacity: 1;
@@ -26,10 +29,10 @@
       transform: translateY(0);
     }
     40% {
-      transform: translateY(-10px);
+      transform: translateY(-0.625rem);
     }
     60% {
-      transform: translateY(-5px);
+      transform: translateY(-0.3125rem);
     }
   }
 
@@ -37,7 +40,7 @@
   @keyframes slide-up {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(1.25rem);
     }
     to {
       opacity: 1;
@@ -53,7 +56,7 @@
     transform: translateY(0) !important;
   }
 
-  /* Glassmorphism card effect */
+  /* Glassmorphism card */
   .card-glass {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -61,12 +64,15 @@
     border: 1px solid rgba(255, 255, 255, 0.18);
   }
 
-  /* Gradient background */
+  /* Gradients */
   .bg-primary-gradient {
     background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
   }
 
-  /* Gradient text */
+  .bg-free-gradient {
+    background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
+  }
+
   .text-gradient {
     background: linear-gradient(45deg, #fff, #e0e0e0);
     -webkit-background-clip: text;
@@ -74,18 +80,29 @@
     background-clip: text;
   }
 
-  /* Free badge gradient */
-  .bg-free-gradient {
-    background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
-  }
-
-  /* Glow shadow effect */
+  /* Shadows */
   .shadow-glow {
     box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
   }
 
-  /* Accent glow */
   .shadow-accent-glow {
     box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  }
+
+  /* Animation delays for stagger effect */
+  .delay-1 {
+    animation-delay: 0.1s;
+  }
+
+  .delay-2 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-3 {
+    animation-delay: 0.3s;
+  }
+
+  .delay-4 {
+    animation-delay: 0.4s;
   }
 }

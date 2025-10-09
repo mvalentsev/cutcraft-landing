@@ -22,4 +22,12 @@ export default defineConfig({
     // Inject version for console.log or HTML footer
     __APP_VERSION__: JSON.stringify(version),
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: '/index.html',
+        404: '/404.html',
+      },
+    },
+  },
 })

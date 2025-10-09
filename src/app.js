@@ -35,21 +35,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
-
-  // Visual feedback for CTA buttons
-  const ctaButtons = document.querySelectorAll('.cta-button')
-  ctaButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      button.style.transform = 'scale(0.95)'
-      setTimeout(() => {
-        button.style.transform = ''
-      }, 150)
-    })
-  })
-
-  // Stagger animation for feature cards
-  const featureCards = document.querySelectorAll('.feature-card')
-  featureCards.forEach((card, index) => {
-    card.style.animationDelay = `${index * 0.1}s`
-  })
 })

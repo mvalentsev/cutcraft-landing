@@ -1,232 +1,235 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CutCraft - AI Content Creation Bot</title>
-    <meta name="description" content="AI генерация видео (Sora 2, Veo 3), изображений (Nano Banana) и текста (DeepSeek, Qwen) в Telegram. Бесплатная текстовая генерация!">
-    <meta name="keywords" content="AI, Sora 2, Veo 3, video generation, image generation, DeepSeek, Qwen, free AI, Telegram bot, CutCraft, text generation">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CutCraft - AI Content Creation Bot</title>
+  <meta name="description" content="AI генерация видео (Sora 2, Veo 3), изображений (Nano Banana) и текста (DeepSeek, Qwen) в Telegram. Бесплатная текстовая генерация!">
+  <meta name="keywords" content="AI, Sora 2, Veo 3, video generation, image generation, DeepSeek, Qwen, free AI, Telegram bot, CutCraft, text generation">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="CutCraft - AI Content Creation Bot">
-    <meta property="og:description" content="AI генерация видео (Sora 2, Veo 3), изображений и текста в Telegram. Бесплатная текстовая генерация!">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cutcraft.cc">
+  <!-- Open Graph -->
+  <meta property="og:title" content="CutCraft - AI Content Creation Bot">
+  <meta property="og:description" content="AI генерация видео (Sora 2, Veo 3), изображений и текста в Telegram. Бесплатная текстовая генерация!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cutcraft.cc">
 </head>
 <body class="bg-primary-gradient min-h-screen text-white font-sans">
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center text-center py-20 px-5 opacity-0 translate-y-5 transition-all duration-600" id="hero">
-        <div class="animate-fade-in">
-            <div class="text-[5rem] mb-5 animate-bounce-custom" aria-label="CutCraft Logo">🎬</div>
-            <h1 class="text-5xl md:text-6xl mb-5 font-bold text-gradient">CutCraft</h1>
-            <p class="text-2xl md:text-3xl mb-10 opacity-90">Генерируй контент с AI в Telegram</p>
-            <a href="https://t.me/CutCraftBot" class="cta-button inline-block bg-free-gradient text-white no-underline px-10 py-4 rounded-full text-xl font-semibold transition-all duration-300 shadow-accent-glow hover:translate-y-[-2px] hover:scale-105 hover:shadow-glow" aria-label="Открыть CutCraft бота в Telegram">
-                🤖 Открыть бота
-            </a>
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center text-center py-20 px-5 opacity-0 translate-y-5 transition-all duration-[600ms]" id="hero">
+    <div class="animate-fade-in">
+      <div class="text-[5rem] mb-5 animate-bounce-custom" aria-label="CutCraft Logo">🎬</div>
+      <h1 class="text-5xl md:text-6xl mb-5 font-bold text-gradient">CutCraft</h1>
+      <p class="text-2xl md:text-3xl mb-10 opacity-90">Генерируй контент с AI в Telegram</p>
+      <a href="https://t.me/CutCraftBot" class="inline-block bg-free-gradient text-white no-underline px-10 py-4 rounded-full text-xl font-semibold transition-all duration-300 shadow-accent-glow hover:-translate-y-0.5 hover:scale-105 hover:shadow-glow" aria-label="Открыть CutCraft бота в Telegram">
+        🤖 Открыть бота
+      </a>
+    </div>
+  </section>
 
-    <!-- Features Section -->
-    <section class="py-20 px-5 bg-black/20 opacity-0 translate-y-5 transition-all duration-600" id="features">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="feature-card card-glass p-8 rounded-2xl text-center transition-all duration-300 opacity-0 translate-y-5 animate-slide-up hover:scale-105 hover:shadow-glow" style="animation-delay: 0.1s">
-                    <div class="text-5xl mb-4">💬</div>
-                    <h3 class="text-xl mb-2 text-white">Текст <span class="free-badge inline-block bg-free-gradient px-3 py-1 rounded-2xl text-xs font-bold uppercase tracking-wider ml-2 text-white">БЕСПЛАТНО</span></h3>
-                    <p class="text-base opacity-80 mb-1">DeepSeek v3.1 & Qwen 235B</p>
-                    <p class="feature-price font-semibold text-accent mt-2">0 токенов</p>
-                </div>
-                <div class="feature-card card-glass p-8 rounded-2xl text-center transition-all duration-300 opacity-0 translate-y-5 animate-slide-up hover:scale-105 hover:shadow-glow" style="animation-delay: 0.2s">
-                    <div class="text-5xl mb-4">🎬</div>
-                    <h3 class="text-xl mb-2 text-white">Видео</h3>
-                    <p class="text-base opacity-80 mb-1">Sora 2 & Veo 3</p>
-                    <p class="feature-price font-semibold text-accent mt-2">от 30 токенов</p>
-                </div>
-                <div class="feature-card card-glass p-8 rounded-2xl text-center transition-all duration-300 opacity-0 translate-y-5 animate-slide-up hover:scale-105 hover:shadow-glow" style="animation-delay: 0.3s">
-                    <div class="text-5xl mb-4">🎨</div>
-                    <h3 class="text-xl mb-2 text-white">Изображения</h3>
-                    <p class="text-base opacity-80 mb-1">Nano Banana</p>
-                    <p class="feature-price font-semibold text-accent mt-2">от 2 токенов</p>
-                </div>
-                <div class="feature-card card-glass p-8 rounded-2xl text-center transition-all duration-300 opacity-0 translate-y-5 animate-slide-up hover:scale-105 hover:shadow-glow" style="animation-delay: 0.4s">
-                    <div class="text-5xl mb-4">⚡</div>
-                    <h3 class="text-xl mb-2 text-white">Быстро</h3>
-                    <p class="text-base opacity-80 mb-1">Результат за 1-3 минуты</p>
-                    <p class="feature-price font-semibold text-accent mt-2">&nbsp;</p>
-                </div>
-            </div>
+  <!-- Features Section -->
+  <section class="py-20 px-5 bg-black/20 opacity-0 translate-y-5 transition-all duration-[600ms]" id="features">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 opacity-0 translate-y-5 animate-slide-up delay-1 hover:scale-105 hover:shadow-glow">
+          <div class="text-5xl mb-4">💬</div>
+          <h3 class="text-xl mb-2 text-white">
+            Текст <span class="inline-block bg-free-gradient px-3 py-1 rounded-2xl text-xs font-bold uppercase tracking-wider ml-2">БЕСПЛАТНО</span>
+          </h3>
+          <p class="text-base opacity-80 mb-1">DeepSeek v3.1 & Qwen 235B</p>
+          <p class="font-semibold text-[var(--color-accent)] mt-2">0 токенов</p>
         </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="py-20 px-5 opacity-0 translate-y-5 transition-all duration-600" id="pricing">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-5xl mb-4 text-center font-bold">Прозрачное ценообразование</h2>
-            <div class="max-w-2xl mx-auto card-glass rounded-2xl backdrop-blur-lg p-8 shadow-lg">
-                <div class="flex justify-between items-center py-5 border-b border-white/10">
-                    <div class="text-xl font-medium">Текст</div>
-                    <div class="text-lg font-semibold">
-                        <span class="free-badge inline-block bg-free-gradient px-3 py-1 rounded-2xl text-xs font-bold uppercase tracking-wider text-white">БЕСПЛАТНО</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center py-5 border-b border-white/10">
-                    <div class="text-xl font-medium">Изображения</div>
-                    <div class="text-lg font-semibold text-accent">2 токена</div>
-                </div>
-                <div class="flex justify-between items-center py-5">
-                    <div class="text-xl font-medium">Видео</div>
-                    <div class="text-lg font-semibold text-accent">30-250 токенов</div>
-                </div>
-            </div>
+        <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 opacity-0 translate-y-5 animate-slide-up delay-2 hover:scale-105 hover:shadow-glow">
+          <div class="text-5xl mb-4">🎬</div>
+          <h3 class="text-xl mb-2 text-white">Видео</h3>
+          <p class="text-base opacity-80 mb-1">Sora 2 & Veo 3</p>
+          <p class="font-semibold text-[var(--color-accent)] mt-2">от 30 токенов</p>
         </div>
-    </section>
-
-    <!-- Models Section -->
-    <section class="py-20 px-5 bg-black/20 opacity-0 translate-y-5 transition-all duration-600" id="models">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-5xl mb-10 text-center font-bold">Доступные модели</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="card-glass p-8 rounded-2xl transition-all duration-300 hover:translate-y-[-5px] hover:shadow-glow">
-                    <div class="flex flex-col items-center mb-4">
-                        <div class="text-5xl mb-2">🎬</div>
-                        <h3 class="text-xl mb-2 text-white">Sora 2</h3>
-                        <span class="inline-block bg-free-gradient px-3 py-1 rounded-xl text-xs font-semibold uppercase mt-1 text-white">Рекомендуем</span>
-                    </div>
-                    <p class="text-sm opacity-80 mb-4 text-center min-h-[40px]">Генерация видео из текста и изображений</p>
-                    <ul class="list-none p-0 mb-5">
-                        <li class="text-sm opacity-80 py-1 text-left">✓ Без Watermark!</li>
-                        <li class="text-sm opacity-80 py-1 text-left">✓ Landscape & Portrait</li>
-                        <li class="text-sm opacity-80 py-1 text-left">✓ Text-to-Video & Image-to-Video</li>
-                    </ul>
-                    <div class="text-xl font-bold text-accent text-center pt-4 border-t border-white/10">30 токенов</div>
-                </div>
-                <div class="card-glass p-8 rounded-2xl transition-all duration-300 hover:translate-y-[-5px] hover:shadow-glow">
-                    <div class="flex flex-col items-center mb-4">
-                        <div class="text-5xl mb-2">🎥</div>
-                        <h3 class="text-xl mb-2 text-white">Veo 3</h3>
-                        <span class="inline-block bg-primary-start/30 px-3 py-1 rounded-xl text-xs font-semibold uppercase mt-1 text-white">Pro</span>
-                    </div>
-                    <p class="text-sm opacity-80 mb-4 text-center min-h-[40px]">Профессиональная генерация видео</p>
-                    <ul class="list-none p-0 mb-5">
-                        <li class="text-sm opacity-80 py-1 text-left">✓ 16:9 & 9:16</li>
-                        <li class="text-sm opacity-80 py-1 text-left">✓ Professional Mode</li>
-                        <li class="text-sm opacity-80 py-1 text-left">✓ Fast & Quality варианты</li>
-                    </ul>
-                    <div class="text-xl font-bold text-accent text-center pt-4 border-t border-white/10">60-250 токенов</div>
-                </div>
-                <div class="card-glass p-8 rounded-2xl transition-all duration-300 hover:translate-y-[-5px] hover:shadow-glow">
-                    <div class="flex flex-col items-center mb-4">
-                        <div class="text-5xl mb-2">🎨</div>
-                        <h3 class="text-xl mb-2 text-white">Nano Banana</h3>
-                        <span class="inline-block bg-primary-start/30 px-3 py-1 rounded-xl text-xs font-semibold uppercase mt-1 text-white">Image</span>
-                    </div>
-                    <p class="text-sm opacity-80 mb-4 text-center min-h-[40px]">Генерация и редактирование изображений</p>
-                    <ul class="list-none p-0 mb-5">
-                        <li class="text-sm opacity-80 py-1 text-left">✓ 6 соотношений сторон</li>
-                        <li class="text-sm opacity-80 py-1 text-left">✓ До 10 изображений</li>
-                        <li class="text-sm opacity-80 py-1 text-left">✓ Редактирование</li>
-                    </ul>
-                    <div class="text-xl font-bold text-accent text-center pt-4 border-t border-white/10">2 токена</div>
-                </div>
-                <div class="card-glass p-8 rounded-2xl transition-all duration-300 hover:translate-y-[-5px] hover:shadow-glow">
-                    <div class="flex flex-col items-center mb-4">
-                        <div class="text-5xl mb-2">💬</div>
-                        <h3 class="text-xl mb-2 text-white">DeepSeek & Qwen</h3>
-                        <span class="inline-block bg-free-gradient px-3 py-1 rounded-xl text-xs font-semibold uppercase mt-1 text-white">FREE</span>
-                    </div>
-                    <p class="text-sm opacity-80 mb-4 text-center min-h-[40px]">Генерация текста на любые темы</p>
-                    <ul class="list-none p-0 mb-5">
-                        <li class="text-sm opacity-80 py-1 text-left">✓ DeepSeek V3.1</li>
-                        <li class="text-sm opacity-80 py-1 text-left">✓ Qwen 235B</li>
-                        <li class="text-sm opacity-80 py-1 text-left">✓ Безлимитные запросы</li>
-                    </ul>
-                    <div class="text-xl font-bold text-accent text-center pt-4 border-t border-white/10">БЕСПЛАТНО</div>
-                </div>
-            </div>
+        <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 opacity-0 translate-y-5 animate-slide-up delay-3 hover:scale-105 hover:shadow-glow">
+          <div class="text-5xl mb-4">🎨</div>
+          <h3 class="text-xl mb-2 text-white">Изображения</h3>
+          <p class="text-base opacity-80 mb-1">Nano Banana</p>
+          <p class="font-semibold text-[var(--color-accent)] mt-2">от 2 токенов</p>
         </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="py-20 px-5 bg-black/20 opacity-0 translate-y-5 transition-all duration-600" id="how-it-works">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-5xl mb-10 text-center font-bold">Как это работает</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10">
-                <div class="text-center relative">
-                    <div class="absolute top-[-10px] left-1/2 transform -translate-x-1/2 w-10 h-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">1</div>
-                    <div class="text-6xl mt-10 mb-5">📱</div>
-                    <p class="text-lg opacity-90">Открой бота @CutCraftBot</p>
-                </div>
-                <div class="text-center relative">
-                    <div class="absolute top-[-10px] left-1/2 transform -translate-x-1/2 w-10 h-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">2</div>
-                    <div class="text-6xl mt-10 mb-5">💬</div>
-                    <p class="text-lg opacity-90">Отправь команду /start</p>
-                </div>
-                <div class="text-center relative">
-                    <div class="absolute top-[-10px] left-1/2 transform -translate-x-1/2 w-10 h-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">3</div>
-                    <div class="text-6xl mt-10 mb-5">🎨</div>
-                    <p class="text-lg opacity-90">Создавай контент</p>
-                </div>
-            </div>
+        <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 opacity-0 translate-y-5 animate-slide-up delay-4 hover:scale-105 hover:shadow-glow">
+          <div class="text-5xl mb-4">⚡</div>
+          <h3 class="text-xl mb-2 text-white">Быстро</h3>
+          <p class="text-base opacity-80 mb-1">Результат за 1-3 минуты</p>
+          <p class="font-semibold text-[var(--color-accent)] mt-2">&nbsp;</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Payment Methods Section -->
-    <section class="py-20 px-5 bg-black/10 opacity-0 translate-y-5 transition-all duration-600" id="payment">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-5xl mb-4 text-center font-bold">Удобные способы оплаты</h2>
-            <p class="text-xl mb-10 text-center opacity-80">Выберите наиболее подходящий способ пополнения токенов</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 hover:scale-105 hover:shadow-glow">
-                    <div class="text-5xl mb-4">⭐</div>
-                    <h3 class="text-xl mb-2 text-white">Telegram Stars</h3>
-                    <p class="text-sm opacity-70 mb-5">Встроенная платежная система Telegram</p>
-                    <ul class="list-none p-0 text-left">
-                        <li class="text-sm opacity-80 py-2 border-b border-white/10">Быстрая оплата в один клик</li>
-                        <li class="text-sm opacity-80 py-2 border-b border-white/10">Безопасно и удобно</li>
-                        <li class="text-sm opacity-80 py-2">Без комиссий</li>
-                    </ul>
-                </div>
-                <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 hover:scale-105 hover:shadow-glow">
-                    <div class="text-5xl mb-4">💳</div>
-                    <h3 class="text-xl mb-2 text-white">YooKassa СБП</h3>
-                    <p class="text-sm opacity-70 mb-5">Система быстрых платежей</p>
-                    <ul class="list-none p-0 text-left">
-                        <li class="text-sm opacity-80 py-2 border-b border-white/10">Моментальный перевод</li>
-                        <li class="text-sm opacity-80 py-2 border-b border-white/10">Без комиссий от банков РФ</li>
-                        <li class="text-sm opacity-80 py-2">Поддержка всех российских банков</li>
-                    </ul>
-                </div>
-                <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 hover:scale-105 hover:shadow-glow">
-                    <div class="text-5xl mb-4">💰</div>
-                    <h3 class="text-xl mb-2 text-white">YooKassa Карты</h3>
-                    <p class="text-sm opacity-70 mb-5">Оплата банковскими картами</p>
-                    <ul class="list-none p-0 text-left">
-                        <li class="text-sm opacity-80 py-2 border-b border-white/10">Visa, MasterCard, МИР</li>
-                        <li class="text-sm opacity-80 py-2 border-b border-white/10">Автоматическое зачисление</li>
-                        <li class="text-sm opacity-80 py-2">Безопасные платежи</li>
-                    </ul>
-                </div>
-            </div>
+  <!-- Pricing Section -->
+  <section class="py-20 px-5 opacity-0 translate-y-5 transition-all duration-[600ms]" id="pricing">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl mb-4 text-center font-bold">Прозрачное ценообразование</h2>
+      <div class="max-w-2xl mx-auto card-glass rounded-2xl backdrop-blur-lg p-8 shadow-lg">
+        <div class="flex justify-between items-center py-5 border-b border-white/10">
+          <div class="text-xl font-medium">Текст</div>
+          <div class="text-lg font-semibold">
+            <span class="inline-block bg-free-gradient px-3 py-1 rounded-2xl text-xs font-bold uppercase tracking-wider">БЕСПЛАТНО</span>
+          </div>
         </div>
-    </section>
-
-    <!-- Final CTA Section -->
-    <section class="py-20 px-5 text-center opacity-0 translate-y-5 transition-all duration-600" id="cta">
-        <div class="max-w-7xl mx-auto">
-            <a href="https://t.me/CutCraftBot" class="cta-button large inline-block bg-free-gradient text-white no-underline px-12 py-5 rounded-full text-2xl font-semibold transition-all duration-300 shadow-accent-glow hover:translate-y-[-2px] hover:scale-105 hover:shadow-glow" aria-label="Открыть CutCraft бота в Telegram">
-                Открыть @CutCraftBot
-            </a>
-            <p class="text-base opacity-70 mt-8 mb-5">Или отсканируйте QR-код</p>
-            <div class="inline-block my-5 p-5 bg-white/90 rounded-2xl shadow-2xl">
-                <img src="/qr-code.png" alt="QR Code для CutCraft бота" class="w-64 rounded-lg">
-            </div>
+        <div class="flex justify-between items-center py-5 border-b border-white/10">
+          <div class="text-xl font-medium">Изображения</div>
+          <div class="text-lg font-semibold text-[var(--color-accent)]">2 токена</div>
         </div>
-    </section>
+        <div class="flex justify-between items-center py-5">
+          <div class="text-xl font-medium">Видео</div>
+          <div class="text-lg font-semibold text-[var(--color-accent)]">30-250 токенов</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="py-10 px-5 text-center border-t border-white/20 text-base opacity-70">
-        <p>Powered by AI • Made with ❤️</p>
-    </footer>
-    <script src="./src/app.js" type="module"></script>
+  <!-- Models Section -->
+  <section class="py-20 px-5 bg-black/20 opacity-0 translate-y-5 transition-all duration-[600ms]" id="models">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl mb-10 text-center font-bold">Доступные модели</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="card-glass p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
+          <div class="flex flex-col items-center mb-4">
+            <div class="text-5xl mb-2">🎬</div>
+            <h3 class="text-xl mb-2 text-white">Sora 2</h3>
+            <span class="inline-block bg-free-gradient px-3 py-1 rounded-xl text-xs font-semibold uppercase mt-1">Рекомендуем</span>
+          </div>
+          <p class="text-sm opacity-80 mb-4 text-center min-h-[40px]">Генерация видео из текста и изображений</p>
+          <ul class="list-none p-0 mb-5">
+            <li class="text-sm opacity-80 py-1 text-left">✓ Без Watermark!</li>
+            <li class="text-sm opacity-80 py-1 text-left">✓ Landscape & Portrait</li>
+            <li class="text-sm opacity-80 py-1 text-left">✓ Text-to-Video & Image-to-Video</li>
+          </ul>
+          <div class="text-xl font-bold text-[var(--color-accent)] text-center pt-4 border-t border-white/10">30 токенов</div>
+        </div>
+        <div class="card-glass p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
+          <div class="flex flex-col items-center mb-4">
+            <div class="text-5xl mb-2">🎥</div>
+            <h3 class="text-xl mb-2 text-white">Veo 3</h3>
+            <span class="inline-block bg-[var(--color-badge-secondary)] px-3 py-1 rounded-xl text-xs font-semibold uppercase mt-1">Pro</span>
+          </div>
+          <p class="text-sm opacity-80 mb-4 text-center min-h-[40px]">Профессиональная генерация видео</p>
+          <ul class="list-none p-0 mb-5">
+            <li class="text-sm opacity-80 py-1 text-left">✓ 16:9 & 9:16</li>
+            <li class="text-sm opacity-80 py-1 text-left">✓ Professional Mode</li>
+            <li class="text-sm opacity-80 py-1 text-left">✓ Fast & Quality варианты</li>
+          </ul>
+          <div class="text-xl font-bold text-[var(--color-accent)] text-center pt-4 border-t border-white/10">60-250 токенов</div>
+        </div>
+        <div class="card-glass p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
+          <div class="flex flex-col items-center mb-4">
+            <div class="text-5xl mb-2">🎨</div>
+            <h3 class="text-xl mb-2 text-white">Nano Banana</h3>
+            <span class="inline-block bg-[var(--color-badge-secondary)] px-3 py-1 rounded-xl text-xs font-semibold uppercase mt-1">Image</span>
+          </div>
+          <p class="text-sm opacity-80 mb-4 text-center min-h-[40px]">Генерация и редактирование изображений</p>
+          <ul class="list-none p-0 mb-5">
+            <li class="text-sm opacity-80 py-1 text-left">✓ 6 соотношений сторон</li>
+            <li class="text-sm opacity-80 py-1 text-left">✓ До 10 изображений</li>
+            <li class="text-sm opacity-80 py-1 text-left">✓ Редактирование</li>
+          </ul>
+          <div class="text-xl font-bold text-[var(--color-accent)] text-center pt-4 border-t border-white/10">2 токена</div>
+        </div>
+        <div class="card-glass p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
+          <div class="flex flex-col items-center mb-4">
+            <div class="text-5xl mb-2">💬</div>
+            <h3 class="text-xl mb-2 text-white">DeepSeek & Qwen</h3>
+            <span class="inline-block bg-free-gradient px-3 py-1 rounded-xl text-xs font-semibold uppercase mt-1">FREE</span>
+          </div>
+          <p class="text-sm opacity-80 mb-4 text-center min-h-[40px]">Генерация текста на любые темы</p>
+          <ul class="list-none p-0 mb-5">
+            <li class="text-sm opacity-80 py-1 text-left">✓ DeepSeek V3.1</li>
+            <li class="text-sm opacity-80 py-1 text-left">✓ Qwen 235B</li>
+            <li class="text-sm opacity-80 py-1 text-left">✓ Безлимитные запросы</li>
+          </ul>
+          <div class="text-xl font-bold text-[var(--color-accent)] text-center pt-4 border-t border-white/10">БЕСПЛАТНО</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-20 px-5 bg-black/20 opacity-0 translate-y-5 transition-all duration-[600ms]" id="how-it-works">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl mb-10 text-center font-bold">Как это работает</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10">
+        <div class="text-center relative">
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 size-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">1</div>
+          <div class="text-6xl mt-10 mb-5">📱</div>
+          <p class="text-lg opacity-90">Открой бота @CutCraftBot</p>
+        </div>
+        <div class="text-center relative">
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 size-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">2</div>
+          <div class="text-6xl mt-10 mb-5">💬</div>
+          <p class="text-lg opacity-90">Отправь команду /start</p>
+        </div>
+        <div class="text-center relative">
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 size-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">3</div>
+          <div class="text-6xl mt-10 mb-5">🎨</div>
+          <p class="text-lg opacity-90">Создавай контент</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment Methods Section -->
+  <section class="py-20 px-5 bg-black/10 opacity-0 translate-y-5 transition-all duration-[600ms]" id="payment">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl mb-4 text-center font-bold">Удобные способы оплаты</h2>
+      <p class="text-xl mb-10 text-center opacity-80">Выберите наиболее подходящий способ пополнения токенов</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+        <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 hover:scale-105 hover:shadow-glow">
+          <div class="text-5xl mb-4">⭐</div>
+          <h3 class="text-xl mb-2 text-white">Telegram Stars</h3>
+          <p class="text-sm opacity-70 mb-5">Встроенная платежная система Telegram</p>
+          <ul class="list-none p-0 text-left">
+            <li class="text-sm opacity-80 py-2 border-b border-white/10">Быстрая оплата в один клик</li>
+            <li class="text-sm opacity-80 py-2 border-b border-white/10">Безопасно и удобно</li>
+            <li class="text-sm opacity-80 py-2">Без комиссий</li>
+          </ul>
+        </div>
+        <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 hover:scale-105 hover:shadow-glow">
+          <div class="text-5xl mb-4">💳</div>
+          <h3 class="text-xl mb-2 text-white">YooKassa СБП</h3>
+          <p class="text-sm opacity-70 mb-5">Система быстрых платежей</p>
+          <ul class="list-none p-0 text-left">
+            <li class="text-sm opacity-80 py-2 border-b border-white/10">Моментальный перевод</li>
+            <li class="text-sm opacity-80 py-2 border-b border-white/10">Без комиссий от банков РФ</li>
+            <li class="text-sm opacity-80 py-2">Поддержка всех российских банков</li>
+          </ul>
+        </div>
+        <div class="card-glass p-8 rounded-2xl text-center transition-all duration-300 hover:scale-105 hover:shadow-glow">
+          <div class="text-5xl mb-4">💰</div>
+          <h3 class="text-xl mb-2 text-white">YooKassa Карты</h3>
+          <p class="text-sm opacity-70 mb-5">Оплата банковскими картами</p>
+          <ul class="list-none p-0 text-left">
+            <li class="text-sm opacity-80 py-2 border-b border-white/10">Visa, MasterCard, МИР</li>
+            <li class="text-sm opacity-80 py-2 border-b border-white/10">Автоматическое зачисление</li>
+            <li class="text-sm opacity-80 py-2">Безопасные платежи</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="py-20 px-5 text-center opacity-0 translate-y-5 transition-all duration-[600ms]" id="cta">
+    <div class="max-w-7xl mx-auto">
+      <a href="https://t.me/CutCraftBot" class="inline-block bg-free-gradient text-white no-underline px-12 py-5 rounded-full text-2xl font-semibold transition-all duration-300 shadow-accent-glow hover:-translate-y-0.5 hover:scale-105 hover:shadow-glow" aria-label="Открыть CutCraft бота в Telegram">
+        Открыть @CutCraftBot
+      </a>
+      <p class="text-base opacity-70 mt-8 mb-5">Или отсканируйте QR-код</p>
+      <div class="inline-block my-5 p-5 bg-white/90 rounded-2xl shadow-2xl">
+        <img src="/qr-code.png" alt="QR Code для CutCraft бота" class="w-64 rounded-lg">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 px-5 text-center border-t border-white/20 text-base opacity-70">
+    <p>Powered by AI • Made with ❤️</p>
+  </footer>
+
+  <script src="./src/app.js" type="module"></script>
 </body>
 </html>
