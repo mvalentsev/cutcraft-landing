@@ -7,21 +7,57 @@
   <meta name="description" content="AI генерация видео (Sora 2, Veo 3), изображений (Nano Banana) и текста (DeepSeek, Qwen) в Telegram. Бесплатная текстовая генерация!">
   <meta name="keywords" content="AI, Sora 2, Veo 3, video generation, image generation, DeepSeek, Qwen, free AI, Telegram bot, CutCraft, text generation">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://cutcraft.cc">
+
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#667eea">
+
   <!-- Open Graph -->
   <meta property="og:title" content="CutCraft - AI Content Creation Bot">
   <meta property="og:description" content="AI генерация видео (Sora 2, Veo 3), изображений и текста в Telegram. Бесплатная текстовая генерация!">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cutcraft.cc">
+  <meta property="og:site_name" content="CutCraft">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CutCraft - AI Content Creation Bot">
+  <meta name="twitter:description" content="AI генерация видео, изображений и текста в Telegram">
 
   <!-- Preconnect to external resources -->
   <link rel="preconnect" href="https://t.me" crossorigin>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CutCraft",
+    "description": "AI генерация видео (Sora 2, Veo 3), изображений (Nano Banana) и текста (DeepSeek, Qwen) в Telegram",
+    "url": "https://cutcraft.cc",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Telegram",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Бесплатная текстовая генерация"
+    }
+  }
+  </script>
 </head>
 <body class="bg-primary-gradient min-h-screen text-white font-sans">
-  <main>
+  <!-- Skip to main content link for accessibility -->
+  <a href="#main-content" class="skip-link">Перейти к основному содержанию</a>
+  <main id="main-content">
   <!-- Hero Section -->
   <section class="min-h-screen flex items-center justify-center text-center py-20 px-5 opacity-0 translate-y-5 transition-all duration-[600ms]" id="hero">
     <div class="animate-fade-in">
-      <div class="text-[5rem] mb-5 animate-bounce-custom" aria-label="CutCraft Logo">🎬</div>
+      <div class="hero-emoji mb-5 animate-bounce-custom" aria-label="CutCraft Logo">🎬</div>
       <h1 class="text-5xl md:text-6xl mb-5 font-bold text-gradient">CutCraft</h1>
       <p class="text-2xl md:text-3xl mb-10 opacity-90">Генерируй контент с AI в Telegram</p>
       <a href="https://t.me/CutCraftBot" class="cta-button" aria-label="Открыть CutCraft бота в Telegram">
@@ -158,17 +194,17 @@
       <h2 class="text-4xl md:text-5xl mb-10 text-center font-bold">Как это работает</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10">
         <div class="text-center relative">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 size-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">1</div>
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 step-number bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">1</div>
           <div class="text-6xl mt-10 mb-5">📱</div>
           <p class="text-lg opacity-90">Открой бота @CutCraftBot</p>
         </div>
         <div class="text-center relative">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 size-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">2</div>
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 step-number bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">2</div>
           <div class="text-6xl mt-10 mb-5">💬</div>
           <p class="text-lg opacity-90">Отправь команду /start</p>
         </div>
         <div class="text-center relative">
-          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 size-10 bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">3</div>
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 step-number bg-free-gradient rounded-full flex items-center justify-center font-bold text-xl">3</div>
           <div class="text-6xl mt-10 mb-5">🎨</div>
           <p class="text-lg opacity-90">Создавай контент</p>
         </div>
@@ -224,7 +260,7 @@
       </a>
       <p class="text-base opacity-70 mt-8 mb-5">Или отсканируйте QR-код</p>
       <div class="inline-block my-5 p-5 bg-white/90 rounded-2xl shadow-2xl">
-        <img src="/qr-code.png" alt="QR Code для CutCraft бота" class="w-64 rounded-lg" loading="lazy" width="256" height="256">
+        <img src="/qr-code.png" alt="QR-код бота" class="w-64 rounded-lg" loading="lazy" width="256" height="256">
       </div>
     </div>
   </section>

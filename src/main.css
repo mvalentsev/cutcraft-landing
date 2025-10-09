@@ -8,7 +8,26 @@
   --color-accent-hover: #45a049;
 
   /* Badge background color (for Pro/Image badges) */
-  --color-badge-secondary: oklch(from var(--color-primary-start) l c h / 0.3);
+  /* FIXED: oklch(from var(...)) doesn't work in @theme in Tailwind 4.1 */
+  /* Using static oklch value based on primary-start color with 30% opacity */
+  --color-badge-secondary: oklch(0.63 0.12 270 / 0.3);
+
+  /* Glassmorphism shared properties */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-shadow: rgba(31, 38, 135, 0.37);
+  --glass-hover-shadow: rgba(102, 126, 234, 0.4);
+
+  /* Spacing & sizing */
+  --hero-emoji-size: 5rem;
+  --error-emoji-size: 8rem;
+  --step-number-size: 2.5rem;
+
+  /* Animation delays */
+  --delay-1: 0.1s;
+  --delay-2: 0.2s;
+  --delay-3: 0.3s;
+  --delay-4: 0.4s;
 
   /* Custom animations */
   --animate-fade-in: fade-in 0.8s ease-out forwards;
@@ -48,138 +67,181 @@
   }
 }
 
-@layer components {
-  /* Scroll animation trigger */
-  section.visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
+/* Scroll animation trigger (not a utility, keep as class) */
+section.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
 
-  /* Glassmorphism card - base style */
-  .card-glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-  }
+/* Glassmorphism card - base utility */
+@utility card-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+}
 
-  /* Feature card (repeating pattern on index page) */
-  .feature-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    padding: 2rem;
-    border-radius: 1rem;
-    text-align: center;
-    transition-property: all;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
+/* Feature card utility */
+@utility feature-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  .feature-card:hover {
+  &:hover {
     transform: scale(1.05);
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 12px 40px var(--glass-hover-shadow);
   }
 
-  /* Payment method card */
-  .payment-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    padding: 2rem;
-    border-radius: 1rem;
-    text-align: center;
-    transition-property: all;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
+}
 
-  .payment-card:hover {
+/* Payment card utility */
+@utility payment-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
     transform: scale(1.05);
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 12px 40px var(--glass-hover-shadow);
   }
 
-  /* Model card */
-  .model-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    padding: 2rem;
-    border-radius: 1rem;
-    transition-property: all;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
+}
 
-  .model-card:hover {
+/* Model card utility */
+@utility model-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  padding: 2rem;
+  border-radius: 1rem;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
     transform: translateY(-0.25rem);
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 12px 40px var(--glass-hover-shadow);
   }
 
-  /* CTA button */
-  .cta-button {
-    display: inline-block;
-    background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
-    color: white;
-    text-decoration: none;
-    padding: 1rem 2.5rem;
-    border-radius: 9999px;
-    font-size: 1.25rem;
-    font-weight: 600;
-    transition-property: all;
-    transition-duration: 300ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
+}
 
-  .cta-button:hover {
+/* CTA button utility */
+@utility cta-button {
+  display: inline-block;
+  background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
+  color: white;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+
+  &:hover {
     transform: translateY(-0.125rem) scale(1.05);
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 12px 40px var(--glass-hover-shadow);
   }
 
-  /* Gradients */
-  .bg-primary-gradient {
-    background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+  &:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
   }
+}
 
-  .bg-free-gradient {
-    background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
-  }
+/* Gradient utilities */
+@utility bg-primary-gradient {
+  background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+}
 
-  .text-gradient {
-    background: linear-gradient(45deg, #fff, #e0e0e0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+@utility bg-free-gradient {
+  background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
+}
 
-  /* Shadows */
-  .shadow-glow {
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
-  }
+@utility text-gradient {
+  background: linear-gradient(45deg, #fff, #e0e0e0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
 
-  .shadow-accent-glow {
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-  }
+/* Shadow utilities */
+@utility shadow-glow {
+  box-shadow: 0 12px 40px var(--glass-hover-shadow);
+}
 
-  /* Animation delays for stagger effect */
-  .delay-1 {
-    animation-delay: 0.1s;
-  }
+@utility shadow-accent-glow {
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
 
-  .delay-2 {
-    animation-delay: 0.2s;
-  }
+/* Hero emoji size */
+@utility hero-emoji {
+  font-size: var(--hero-emoji-size);
+}
 
-  .delay-3 {
-    animation-delay: 0.3s;
-  }
+/* Error page emoji size */
+@utility error-emoji {
+  font-size: var(--error-emoji-size);
+}
 
-  .delay-4 {
-    animation-delay: 0.4s;
+/* Step number circle */
+@utility step-number {
+  width: var(--step-number-size);
+  height: var(--step-number-size);
+}
+
+/* Animation delays for stagger effect */
+@utility delay-1 {
+  animation-delay: var(--delay-1);
+}
+
+@utility delay-2 {
+  animation-delay: var(--delay-2);
+}
+
+@utility delay-3 {
+  animation-delay: var(--delay-3);
+}
+
+@utility delay-4 {
+  animation-delay: var(--delay-4);
+}
+
+/* Skip to main content link */
+@utility skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  z-index: 100;
+
+  &:focus {
+    top: 0;
   }
 }
 
