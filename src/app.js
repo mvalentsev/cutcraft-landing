@@ -3,6 +3,9 @@ import './main.css'
 // Log version for debugging
 console.log(`CutCraft Landing ${__APP_VERSION__}`)
 
+// Check if user prefers reduced motion
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 // Landing Page JavaScript
 document.addEventListener('DOMContentLoaded', () => {
   // Intersection Observer for scroll animations
@@ -11,26 +14,39 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible')
+          // Stop observing once visible (performance optimization)
+          observer.unobserve(entry.target)
         }
       })
     },
-    { threshold: 0.2 }
+    {
+      threshold: 0.1,
+      rootMargin: '50px' // Trigger animations 50px before element is visible
+    }
   )
 
-  // Observe all sections
-  document.querySelectorAll('section').forEach(section => {
-    observer.observe(section)
-  })
+  // Observe all sections (skip if reduced motion preferred)
+  if (!prefersReducedMotion) {
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section)
+    })
+  } else {
+    // Immediately show all sections if animations disabled
+    document.querySelectorAll('section').forEach(section => {
+      section.classList.add('visible')
+    })
+  }
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       e.preventDefault()
-      const target = document.querySelector(this.getAttribute('href'))
+      const href = this.getAttribute('href')
+      const target = document.querySelector(href)
       if (target) {
         target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
+          block: 'start'
         })
       }
     })
