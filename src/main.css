@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  /* Custom colors from gradient */
+  --color-primary-start: #667eea;
+  --color-primary-end: #764ba2;
+  --color-accent: #4CAF50;
+  --color-accent-hover: #45a049;
+
+  /* Custom animations */
+  --animate-fade-in: fade-in 0.8s ease-out;
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  --animate-bounce-custom: bounce-custom 2s infinite;
+  @keyframes bounce-custom {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+
+  --animate-slide-up: slide-up 0.6s ease forwards;
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer components {
+  /* Glassmorphism card effect */
+  .card-glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  /* Gradient background */
+  .bg-primary-gradient {
+    background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(45deg, #fff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Free badge gradient */
+  .bg-free-gradient {
+    background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
+  }
+
+  /* Glow shadow effect */
+  .shadow-glow {
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+  }
+
+  /* Accent glow */
+  .shadow-accent-glow {
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  }
+}

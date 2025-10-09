@@ -1,0 +1,17 @@
+{
+  "name": "cutcraft-landing",
+  "version": "2.0.0",
+  "description": "CutCraft Landing Page - AI Content Creation Bot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.14",
+    "tailwindcss": "^4.1.14",
+    "vite": "^7.1.9"
+  }
+}
