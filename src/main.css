@@ -47,6 +47,12 @@
 }
 
 @layer components {
+  /* Scroll animation trigger */
+  section.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+
   /* Glassmorphism card effect */
   .card-glass {
     background: rgba(255, 255, 255, 0.1);
