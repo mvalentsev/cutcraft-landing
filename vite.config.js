@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-import { execSync } from 'child_process'
+import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+import { execSync } from 'child_process';
 
 /**
  * Get git commit hash and build version for cache busting
@@ -8,17 +8,17 @@ import { execSync } from 'child_process'
  */
 function getVersion() {
   try {
-    const commitHash = execSync('git rev-parse --short HEAD', { encoding: 'utf8' }).trim()
-    const date = new Date().toISOString().split('T')[0]
-    return `v2.0.0 (${commitHash}) • ${date}`
-  } catch (error) {
+    const commitHash = execSync('git rev-parse --short HEAD', { encoding: 'utf8' }).trim();
+    const date = new Date().toISOString().split('T')[0];
+    return `v2.0.0 (${commitHash}) • ${date}`;
+  } catch {
     // Fallback if git is not available (e.g., in CI without git history)
-    const date = new Date().toISOString().split('T')[0]
-    return `v2.0.0 • ${date}`
+    const date = new Date().toISOString().split('T')[0];
+    return `v2.0.0 • ${date}`;
   }
 }
 
-const version = getVersion()
+const version = getVersion();
 
 export default defineConfig({
   plugins: [
@@ -28,14 +28,14 @@ export default defineConfig({
       transformIndexHtml(html) {
         // Add preload hints for critical CSS (injected during build)
         // Vite automatically adds modulepreload for JS
-        return html
-      }
-    }
+        return html;
+      },
+    },
   ],
 
   // Inject version as global constant
   define: {
-    __APP_VERSION__: JSON.stringify(version)
+    __APP_VERSION__: JSON.stringify(version),
   },
 
   build: {
@@ -43,8 +43,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: '/index.html',
-        404: '/404.html'
-      }
-    }
-  }
-})
+        404: '/404.html',
+      },
+    },
+  },
+});

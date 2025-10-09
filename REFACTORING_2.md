@@ -2,7 +2,9 @@
 
 ## 🎯 Цель
 
-Полная модернизация landing page с использованием современного синтаксиса Tailwind CSS 4.1 и лучших практик Vite 7, устранение технического долга, улучшение SEO и accessibility.
+Полная модернизация landing page с использованием современного синтаксиса
+Tailwind CSS 4.1 и лучших практик Vite 7, устранение технического долга,
+улучшение SEO и accessibility.
 
 ---
 
@@ -13,31 +15,38 @@
 #### 1.1 OKLCH синтаксис (main.css:11-13)
 
 **Проблема:**
+
 ```css
 /* ❌ НЕ РАБОТАЕТ в Tailwind 4.1 */
 --color-badge-secondary: oklch(from var(--color-primary-start) l c h / 0.3);
 ```
 
 **Решение:**
+
 ```css
 /* ✅ Статическое значение oklch */
 --color-badge-secondary: oklch(0.63 0.12 270 / 0.3);
 ```
 
-**Причина:** Синтаксис `oklch(from var(...))` не поддерживается в `@theme` в Tailwind 4.1 ([GitHub Issue #16640](https://github.com/tailwindlabs/tailwindcss/discussions/16640))
+**Причина:** Синтаксис `oklch(from var(...))` не поддерживается в `@theme` в
+Tailwind 4.1
+([GitHub Issue #16640](https://github.com/tailwindlabs/tailwindcss/discussions/16640))
 
 ---
 
 #### 1.2 Миграция с @layer components на @utility (main.css:70-246)
 
-**Проблема:** `@layer components` устарел в Tailwind 4.1, рекомендуется `@utility`
+**Проблема:** `@layer components` устарел в Tailwind 4.1, рекомендуется
+`@utility`
 
 **Изменения:**
+
 - ✅ Все кастомные классы мигрированы на `@utility` директиву
 - ✅ Добавлены `:focus-visible` states для accessibility
 - ✅ Использование вложенного синтаксиса `&:hover` и `&:focus-visible`
 
 **Пример:**
+
 ```css
 /* Было: @layer components */
 @layer components {
@@ -69,6 +78,7 @@
 ```
 
 **Мигрированные утилиты:**
+
 - `card-glass` - базовый glassmorphism эффект
 - `feature-card` - карточки фич
 - `payment-card` - карточки способов оплаты
@@ -87,6 +97,7 @@
 #### 1.3 Vendor Prefixes (.text-gradient, main.css:182-188)
 
 **Было:**
+
 ```css
 .text-gradient {
   background: linear-gradient(45deg, #fff, #e0e0e0);
@@ -97,6 +108,7 @@
 ```
 
 **Стало:**
+
 ```css
 @utility text-gradient {
   background: linear-gradient(45deg, #fff, #e0e0e0);
@@ -108,6 +120,7 @@
 ```
 
 **Изменения:**
+
 - `background-clip: text` перед `-webkit-background-clip` (правильный порядок)
 - Добавлен `color: transparent` для fallback
 - Автопрефиксинг через Vite (Lightning CSS)
@@ -121,6 +134,7 @@
 **Было:** Свойства повторялись в `.feature-card`, `.payment-card`, `.model-card`
 
 **Стало:** CSS переменные в `@theme`
+
 ```css
 @theme {
   /* Glassmorphism shared properties */
@@ -138,6 +152,7 @@
 #### 2.2 Magic Numbers в CSS Variables (main.css:21-30)
 
 **Добавлены переменные:**
+
 ```css
 @theme {
   /* Spacing & sizing */
@@ -154,6 +169,7 @@
 ```
 
 **Преимущества:**
+
 - Централизованное управление значениями
 - Легко изменить все размеры в одном месте
 - Семантические имена вместо чисел
@@ -165,20 +181,24 @@
 #### 3.1 Meta Теги (index.html:10-27)
 
 **Добавлено:**
+
 ```html
 <!-- Canonical URL -->
-<link rel="canonical" href="https://cutcraft.cc">
+<link rel="canonical" href="https://cutcraft.cc" />
 
 <!-- Theme color for mobile browsers -->
-<meta name="theme-color" content="#667eea">
+<meta name="theme-color" content="#667eea" />
 
 <!-- Open Graph дополнения -->
-<meta property="og:site_name" content="CutCraft">
+<meta property="og:site_name" content="CutCraft" />
 
 <!-- Twitter Cards -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CutCraft - AI Content Creation Bot">
-<meta name="twitter:description" content="AI генерация видео, изображений и текста в Telegram">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CutCraft - AI Content Creation Bot" />
+<meta
+  name="twitter:description"
+  content="AI генерация видео, изображений и текста в Telegram"
+/>
 ```
 
 ---
@@ -186,23 +206,24 @@
 #### 3.2 JSON-LD Structured Data (index.html:31-48)
 
 **Добавлено:**
+
 ```html
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "CutCraft",
-  "description": "AI генерация видео (Sora 2, Veo 3), изображений (Nano Banana) и текста (DeepSeek, Qwen) в Telegram",
-  "url": "https://cutcraft.cc",
-  "applicationCategory": "MultimediaApplication",
-  "operatingSystem": "Telegram",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD",
-    "description": "Бесплатная текстовая генерация"
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CutCraft",
+    "description": "AI генерация видео (Sora 2, Veo 3), изображений (Nano Banana) и текста (DeepSeek, Qwen) в Telegram",
+    "url": "https://cutcraft.cc",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Telegram",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Бесплатная текстовая генерация"
+    }
   }
-}
 </script>
 ```
 
@@ -213,6 +234,7 @@
 #### 3.3 robots.txt и sitemap.xml (public/)
 
 **robots.txt:**
+
 ```
 User-agent: *
 Allow: /
@@ -221,6 +243,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 ```
 
 **sitemap.xml:**
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -240,6 +263,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 #### 4.1 Skip to Main Content (index.html:52, main.css:232-246)
 
 **HTML:**
+
 ```html
 <a href="#main-content" class="skip-link">Перейти к основному содержанию</a>
 <main id="main-content">
@@ -248,6 +272,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 ```
 
 **CSS:**
+
 ```css
 @utility skip-link {
   position: absolute;
@@ -272,6 +297,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 #### 4.2 Focus-Visible States
 
 **Добавлено для всех интерактивных элементов:**
+
 ```css
 &:focus-visible {
   outline: 2px solid var(--color-accent);
@@ -285,8 +311,8 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 
 #### 4.3 Улучшение Alt Text (index.html:260)
 
-**Было:** `alt="QR Code для CutCraft бота"` (слишком длинный)
-**Стало:** `alt="QR-код бота"` (краткий и понятный)
+**Было:** `alt="QR Code для CutCraft бота"` (слишком длинный) **Стало:**
+`alt="QR-код бота"` (краткий и понятный)
 
 ---
 
@@ -295,11 +321,13 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 #### 5.1 GitHub Pages конфигурация
 
 **Создано:**
+
 - `public/.nojekyll` - отключает Jekyll обработку
 - `public/robots.txt` - для поисковых роботов
 - `public/sitemap.xml` - карта сайта
 
 **ВАЖНО:** Это **GitHub Pages**, НЕ Cloudflare Pages!
+
 - ❌ `_headers` файл НЕ работает на GitHub Pages
 - ✅ `.nojekyll` обязателен для корректной работы
 
@@ -308,6 +336,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 #### 5.2 Favicon (public/favicon.svg, index.html:10-11)
 
 **Создан SVG favicon:**
+
 ```svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
@@ -322,6 +351,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 ```
 
 **Преимущества:**
+
 - Векторная графика (масштабируется без потери качества)
 - Маленький размер (462 bytes)
 - Поддержка светлой/темной темы
@@ -333,6 +363,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 #### 6.1 Вынесение Inline Classes в Utilities
 
 **Было:**
+
 ```html
 <div class="text-[5rem] mb-5">🎬</div>
 <div class="text-[8rem] mb-5">🤷</div>
@@ -340,6 +371,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 ```
 
 **Стало:**
+
 ```html
 <div class="hero-emoji mb-5">🎬</div>
 <div class="error-emoji mb-5">🤷</div>
@@ -347,6 +379,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 ```
 
 **Польза:**
+
 - Semantic class names
 - Легче изменить размеры (одно место в CSS)
 - Меньше inline magic numbers
@@ -356,6 +389,7 @@ Sitemap: https://cutcraft.cc/sitemap.xml
 #### 6.2 Обновление 404.html
 
 **Добавлено:**
+
 - Favicon
 - `theme-color` meta tag
 - Использование `error-emoji` utility
@@ -376,6 +410,7 @@ dist/assets/app-DHEbsC-k.js    1.45 kB │ gzip: 0.76 kB  (без изменен
 ```
 
 **Увеличение HTML/CSS оправдано:**
+
 - JSON-LD structured data (+~500 bytes)
 - Дополнительные meta теги (+~300 bytes)
 - Новые utility классы (+~600 bytes CSS)
@@ -399,16 +434,19 @@ dist/assets/app-DHEbsC-k.js    1.45 kB │ gzip: 0.76 kB  (без изменен
 ## 🎯 Достигнутые цели
 
 ### ✅ КРИТИЧЕСКИЕ:
+
 1. ✅ Исправлен OKLCH синтаксис (работает в Tailwind 4.1)
 2. ✅ Миграция на @utility директиву (современный подход)
 3. ✅ Модернизированы vendor prefixes
 
 ### ✅ PERFORMANCE:
+
 4. ✅ Устранено дублирование glassmorphism свойств
 5. ✅ Magic numbers вынесены в CSS variables
 6. ⚠️ QR код пока НЕ оптимизирован (нужны Pillow/imagemagick)
 
 ### ✅ SEO:
+
 7. ✅ Canonical URL
 8. ✅ Twitter Cards
 9. ✅ theme-color
@@ -417,17 +455,20 @@ dist/assets/app-DHEbsC-k.js    1.45 kB │ gzip: 0.76 kB  (без изменен
 12. ✅ sitemap.xml
 
 ### ✅ ACCESSIBILITY:
+
 13. ✅ Skip to main content link
 14. ✅ Focus-visible states
 15. ✅ Улучшенный alt text
 16. ✅ Semantic HTML
 
 ### ✅ INFRASTRUCTURE:
+
 17. ✅ .nojekyll для GitHub Pages
 18. ✅ Favicon (SVG)
 19. ✅ 404.html обновлен
 
 ### ✅ CODE QUALITY:
+
 20. ✅ Inline classes вынесены в utilities
 21. ✅ Semantic naming
 
@@ -445,6 +486,7 @@ dist/assets/app-DHEbsC-k.js    1.45 kB │ gzip: 0.76 kB  (без изменен
 ## 📝 Чек-лист для следующих обновлений
 
 ### TODO (не критично):
+
 - [ ] Оптимизировать QR код (145KB → ~40KB)
   - Установить Pillow или imagemagick
   - Конвертировать в WebP с fallback
@@ -457,12 +499,14 @@ dist/assets/app-DHEbsC-k.js    1.45 kB │ gzip: 0.76 kB  (без изменен
 ## 🚀 Что изменилось с первого рефакторинга (REFACTORING.md)
 
 ### Первый рефакторинг (2025-10-09, утро):
+
 - ✅ Создание utility классов (базовая версия)
 - ✅ Добавление prefers-reduced-motion
 - ✅ Оптимизация Intersection Observer
 - ✅ Минимизация vite.config.js
 
 ### Второй рефакторинг (2025-10-09, вечер):
+
 - ✅ Миграция на **@utility** (вместо @layer components)
 - ✅ Исправление **OKLCH синтаксиса** (критическая ошибка)
 - ✅ Полная **SEO оптимизация** (JSON-LD, robots.txt, sitemap)
@@ -474,7 +518,8 @@ dist/assets/app-DHEbsC-k.js    1.45 kB │ gzip: 0.76 kB  (без изменен
 ## 💡 Ключевые выводы
 
 1. **@utility > @layer components** в Tailwind 4.1
-2. **oklch(from var(...))** НЕ работает в @theme - использовать статичные значения
+2. **oklch(from var(...))** НЕ работает в @theme - использовать статичные
+   значения
 3. **GitHub Pages ≠ Cloudflare Pages** - разные конфиги
 4. **Vite автоматически копирует public/** в dist/
 5. **Focus-visible** обязателен для accessibility
@@ -482,10 +527,9 @@ dist/assets/app-DHEbsC-k.js    1.45 kB │ gzip: 0.76 kB  (без изменен
 
 ---
 
-**Дата:** 2025-10-09
-**Время:** ~1.5 часа
-**Файлов изменено:** 4 (main.css, index.html, 404.html, vite.config.js)
-**Файлов создано:** 4 (.nojekyll, robots.txt, sitemap.xml, favicon.svg)
-**Строк кода:** +~150 строк CSS, +~50 строк HTML
+**Дата:** 2025-10-09 **Время:** ~1.5 часа **Файлов изменено:** 4 (main.css,
+index.html, 404.html, vite.config.js) **Файлов создано:** 4 (.nojekyll,
+robots.txt, sitemap.xml, favicon.svg) **Строк кода:** +~150 строк CSS, +~50
+строк HTML
 
 **Статус:** ✅ PRODUCTION READY 🚀

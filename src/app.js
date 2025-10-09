@@ -1,10 +1,11 @@
-import './main.css'
+import './main.css';
 
 // Log version for debugging
-console.log(`CutCraft Landing ${__APP_VERSION__}`)
+// eslint-disable-next-line no-undef -- __APP_VERSION__ is replaced by Vite build plugin
+console.log(`CutCraft Landing ${__APP_VERSION__}`);
 
 // Check if user prefers reduced motion
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Landing Page JavaScript
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,50 +15,50 @@ document.addEventListener('DOMContentLoaded', () => {
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
+            entry.target.classList.add('visible');
             // Stop observing once visible (performance optimization)
-            observer.unobserve(entry.target)
+            observer.unobserve(entry.target);
           }
-        })
+        });
       },
       {
         threshold: 0.1,
-        rootMargin: '50px' // Trigger animations 50px before element is visible
+        rootMargin: '50px', // Trigger animations 50px before element is visible
       }
-    )
+    );
 
     // Observe all sections (skip if reduced motion preferred)
     if (!prefersReducedMotion) {
       document.querySelectorAll('section').forEach(section => {
-        observer.observe(section)
-      })
+        observer.observe(section);
+      });
     } else {
       // Immediately show all sections if animations disabled
       document.querySelectorAll('section').forEach(section => {
-        section.classList.add('visible')
-      })
+        section.classList.add('visible');
+      });
     }
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault()
-        const href = this.getAttribute('href')
-        const target = document.querySelector(href)
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        const target = document.querySelector(href);
         if (target) {
           target.scrollIntoView({
             behavior: prefersReducedMotion ? 'auto' : 'smooth',
-            block: 'start'
-          })
+            block: 'start',
+          });
         }
-      })
-    })
+      });
+    });
   } catch (error) {
     // Graceful degradation: if JS fails, content is still visible
-    console.error('Landing page initialization error:', error)
+    console.error('Landing page initialization error:', error);
     // Ensure all sections are visible even if observer fails
     document.querySelectorAll('section').forEach(section => {
-      section.classList.add('visible')
-    })
+      section.classList.add('visible');
+    });
   }
-})
+});
