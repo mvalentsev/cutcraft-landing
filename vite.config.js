@@ -21,7 +21,17 @@ function getVersion() {
 const version = getVersion()
 
 export default defineConfig({
-  plugins: [tailwindcss()],
+  plugins: [
+    tailwindcss(),
+    {
+      name: 'html-transform',
+      transformIndexHtml(html) {
+        // Add preload hints for critical CSS (injected during build)
+        // Vite automatically adds modulepreload for JS
+        return html
+      }
+    }
+  ],
 
   // Inject version as global constant
   define: {

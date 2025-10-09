@@ -28,31 +28,29 @@
   --delay-2: 0.2s;
   --delay-3: 0.3s;
   --delay-4: 0.4s;
+}
 
-  /* Custom animations */
-  --animate-fade-in: fade-in 0.8s ease-out forwards;
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(1.25rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+/* Keyframes for custom animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  --animate-bounce-custom: bounce-custom 2s infinite;
-  @keyframes bounce-custom {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-0.625rem);
-    }
-    60% {
-      transform: translateY(-0.3125rem);
-    }
+@keyframes bounce-custom {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-0.625rem);
+  }
+  60% {
+    transform: translateY(-0.3125rem);
   }
 }
 
@@ -73,15 +71,23 @@ section.visible {
   transform: translateY(0) !important;
 }
 
-/* Glassmorphism card - base utility */
+/* Glassmorphism base utility - reusable glass effect */
 @utility card-glass {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px 0 var(--glass-shadow);
   border: 1px solid var(--glass-border);
+  padding: 2rem;
+  border-radius: 1rem;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
 }
 
-/* Feature card utility */
+/* Feature & Payment cards - centered content with scale hover */
 @utility feature-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -103,7 +109,7 @@ section.visible {
   }
 }
 
-/* Payment card utility */
+/* Payment card - alias for feature-card (same behavior) */
 @utility payment-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -125,7 +131,7 @@ section.visible {
   }
 }
 
-/* Model card utility */
+/* Model card - lift effect on hover (different from feature-card) */
 @utility model-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -210,6 +216,15 @@ section.visible {
 @utility step-number {
   width: var(--step-number-size);
   height: var(--step-number-size);
+}
+
+/* Animation utilities */
+@utility animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+@utility animate-bounce-custom {
+  animation: bounce-custom 2s infinite;
 }
 
 /* Animation delays for stagger effect */
