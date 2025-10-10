@@ -56,12 +56,9 @@
   <link rel="dns-prefetch" href="https://t.me">
   <link rel="preconnect" href="https://t.me">
 
-  <!-- Preload critical assets (Vite will inject modulepreload for JS) -->
-  <!-- Modern 2025: fetchpriority for critical CSS -->
-  <link rel="preload" as="style" href="/src/main.css" fetchpriority="high">
-
-  <!-- Modern 2025: Preload QR code image with medium priority -->
-  <link rel="preload" as="image" href="/qr-code.png" fetchpriority="low">
+  <!-- Preload critical assets (Vite will inject modulepreload for JS and CSS) -->
+  <!-- Modern 2025: Preload WebP QR code for faster LCP -->
+  <link rel="preload" as="image" href="/qr-code.webp" type="image/webp">
 
   <!-- JSON-LD Structured Data - WebApplication -->
   <script type="application/ld+json">
@@ -213,8 +210,7 @@
       <div class="hero-emoji mb-5 animate-bounce-custom" aria-hidden="true" role="presentation">🎬</div>
       <h1 class="text-5xl md:text-6xl mb-5 font-bold text-gradient" style="text-wrap: balance;">CutCraft</h1>
       <p class="text-2xl md:text-3xl mb-10 opacity-90" style="text-wrap: balance;">Генерируй контент с AI в Telegram</p>
-      <!-- Modern 2025: fetchpriority on CTA button for faster LCP -->
-      <a href="https://t.me/CutCraftBot" class="cta-button" fetchpriority="high" aria-label="Открыть CutCraft бота в Telegram">
+      <a href="https://t.me/CutCraftBot" class="cta-button" aria-label="Открыть CutCraft бота в Telegram">
         <span aria-hidden="true">🤖</span> Открыть бота
       </a>
     </div>
@@ -414,7 +410,10 @@
       </a>
       <p class="text-base opacity-70 mt-8 mb-5">Или отсканируйте QR-код</p>
       <div class="inline-block my-5 p-5 bg-white/90 rounded-2xl shadow-2xl">
-        <img src="/qr-code.png" alt="QR-код для быстрого доступа к боту CutCraft в Telegram" class="w-64 rounded-lg" loading="lazy" decoding="async" width="256" height="256">
+        <picture>
+          <source srcset="/qr-code.webp" type="image/webp">
+          <img src="/qr-code.png" alt="QR-код для быстрого доступа к боту CutCraft в Telegram" class="w-64 rounded-lg" loading="lazy" decoding="async" width="256" height="256">
+        </picture>
       </div>
     </div>
   </section>

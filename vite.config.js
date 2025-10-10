@@ -24,14 +24,6 @@ const version = getVersion();
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    {
-      name: 'html-transform',
-      transformIndexHtml(html) {
-        // Add preload hints for critical CSS (injected during build)
-        // Vite automatically adds modulepreload for JS
-        return html;
-      },
-    },
     // Brotli compression (better than gzip, ~20% smaller)
     compression({
       algorithm: 'brotliCompress',
@@ -48,9 +40,9 @@ export default defineConfig({
     }),
   ],
 
-  // Development server optimization
+  // Development server optimization (Vite 7.0+)
   server: {
-    // Warmup frequently used files for faster HMR (Vite 7.1)
+    // Warmup frequently used files for faster HMR
     warmup: {
       clientFiles: ['./src/app.js', './src/main.css'],
     },

@@ -1,13 +1,15 @@
 import './main.css';
 
-// Modern 2025: Safe version logging with proper checks
-// eslint-disable-next-line no-undef -- __APP_VERSION__ is replaced by Vite build plugin
+// Modern 2025: Version logging (dev mode only)
+// eslint-disable-next-line no-undef -- __APP_VERSION__ is replaced by Vite build plugin at build time
 if (import.meta.env.DEV) {
+  console.log('CutCraft Landing (dev mode)');
+} else {
   try {
-    const version = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : 'dev';
-    console.log(`CutCraft Landing ${version}`);
+    // __APP_VERSION__ is only available in production builds
+    console.log(`CutCraft Landing ${__APP_VERSION__}`);
   } catch {
-    console.log('CutCraft Landing (dev mode)');
+    // Fallback if build fails to inject version
   }
 }
 
@@ -17,12 +19,15 @@ function reportWebVitals() {
   if ('PerformanceObserver' in window) {
     try {
       const sendToAnalytics = (metricName, metricValue) => {
-        // Modern 2025: Send to analytics (placeholder for future integration)
+        // Track metric with Performance API
         performance.mark(`${metricName}-tracked`, { detail: metricValue });
 
-        // Future: Send to Google Analytics 4, Plausible, or custom analytics
+        // TODO: Send to analytics service (Google Analytics 4, Plausible, etc.)
         // if (window.gtag) {
-        //   window.gtag('event', metricName, { value: Math.round(metricValue), metric_id: generateUniqueId() });
+        //   window.gtag('event', metricName, { value: Math.round(metricValue) });
+        // }
+        // if (window.plausible) {
+        //   window.plausible('Web Vital', { props: { metric: metricName, value: Math.round(metricValue) } });
         // }
 
         if (import.meta.env.DEV) {
@@ -57,19 +62,15 @@ function reportWebVitals() {
       });
       fidObserver.observe({ type: 'first-input', buffered: true });
 
-      // Modern 2025: Interaction to Next Paint (INP) - Chrome 96+
-      try {
-        const inpObserver = new PerformanceObserver((list) => {
-          for (const entry of list.getEntries()) {
-            if (entry.duration) {
-              sendToAnalytics('INP', entry.duration);
-            }
+      // Modern 2025: Interaction to Next Paint (INP) - Chrome 96+ (widely available)
+      const inpObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.duration) {
+            sendToAnalytics('INP', entry.duration);
           }
-        });
-        inpObserver.observe({ type: 'event', buffered: true, durationThreshold: 40 });
-      } catch {
-        // INP not supported in this browser
-      }
+        }
+      });
+      inpObserver.observe({ type: 'event', buffered: true, durationThreshold: 40 });
     } catch (error) {
       // Silent fail for Web Vitals tracking
       if (import.meta.env.DEV) {
