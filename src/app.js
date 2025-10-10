@@ -87,8 +87,6 @@ function withErrorBoundary(fn, fallbackFn) {
 
 // Landing Page JavaScript
 document.addEventListener('DOMContentLoaded', () => {
-  performance.mark('app-init-start');
-
   withErrorBoundary(() => {
     // Feature detection for IntersectionObserver
     if (!('IntersectionObserver' in window)) {
@@ -96,27 +94,34 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('section').forEach(section => {
         section.classList.add('visible');
       });
-      performance.mark('app-init-end');
       return;
     }
 
     // Intersection Observer for scroll animations
+    // Modern 2025: Use Intersection Observer v2 if available
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '50px', // Trigger animations 50px before element is visible
+      signal: appAbortController.signal // Modern 2025: AbortController integration
+    };
+
+    // Add trackVisibility for Intersection Observer v2 (if supported)
+    if ('trackVisibility' in IntersectionObserverEntry.prototype) {
+      observerOptions.trackVisibility = true;
+      observerOptions.delay = 100;
+    }
+
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            performance.mark('section-visible', { detail: entry.target.id });
             // Stop observing once visible (performance optimization)
             observer.unobserve(entry.target);
           }
         });
       },
-      {
-        threshold: 0.1,
-        rootMargin: '50px', // Trigger animations 50px before element is visible
-        signal: appAbortController.signal // Modern 2025: AbortController integration
-      }
+      observerOptions
     );
 
     // Observe all sections except hero (skip if reduced motion preferred)
@@ -140,21 +145,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Smooth scroll for anchor links with View Transitions API support
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       // Modern 2025: Use AbortController signal for event cleanup
-      anchor.addEventListener('click', function (e) {
+      anchor.addEventListener('click', async function (e) {
         e.preventDefault();
         const href = this.getAttribute('href');
         const target = document.querySelector(href);
         if (target) {
-          performance.mark('smooth-scroll', { detail: href });
-
           // Use View Transitions API if available (Chrome 111+, Edge 111+)
           if (document.startViewTransition && !prefersReducedMotion) {
-            document.startViewTransition(() => {
+            await document.startViewTransition(() => {
               target.scrollIntoView({
-                behavior: 'smooth',
+                behavior: 'instant', // instant for smoother transitions
                 block: 'start',
               });
-            });
+            }).finished;
           } else {
             target.scrollIntoView({
               behavior: prefersReducedMotion ? 'auto' : 'smooth',
@@ -165,16 +168,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { signal: appAbortController.signal }); // Modern 2025: AbortController cleanup
     });
 
-    performance.mark('app-init-end');
-
-    // Track Web Vitals
-    reportWebVitals();
+    // Modern 2025: Defer Web Vitals tracking to idle time
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => reportWebVitals(), { timeout: 2000 });
+    } else {
+      // Fallback: use setTimeout
+      setTimeout(reportWebVitals, 1000);
+    }
   }, () => {
     // Fallback: ensure all sections are visible if observer fails
     document.querySelectorAll('section').forEach(section => {
       section.classList.add('visible');
     });
-    performance.mark('app-init-error');
   });
 });
 
@@ -183,3 +188,21 @@ window.addEventListener('beforeunload', () => {
   // Abort all ongoing operations
   appAbortController.abort();
 }, { once: true });
+
+// Modern 2025: Register Service Worker for PWA support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(
+      (registration) => {
+        if (import.meta.env.DEV) {
+          console.log('Service Worker registered:', registration.scope);
+        }
+      },
+      (error) => {
+        if (import.meta.env.DEV) {
+          console.error('Service Worker registration failed:', error);
+        }
+      }
+    );
+  });
+}

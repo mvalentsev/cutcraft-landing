@@ -1,22 +1,27 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { execSync } from 'child_process';
-import { copyFileSync } from 'fs';
+import { copyFileSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 
 /**
  * Get git commit hash and build version for cache busting
- * Format: v2.0.0 (a1b2c3d) • 2025-10-09
+ * Format: v{version} ({hash}) • {date}
+ * Version is read from package.json (DRY principle)
  */
 function getVersion() {
+  // Read version from package.json
+  const packageJson = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
+  const version = packageJson.version;
+
   try {
     const commitHash = execSync('git rev-parse --short HEAD', { encoding: 'utf8' }).trim();
     const date = new Date().toISOString().split('T')[0];
-    return `v2.0.0 (${commitHash}) • ${date}`;
+    return `v${version} (${commitHash}) • ${date}`;
   } catch {
     // Fallback if git is not available (e.g., in CI without git history)
     const date = new Date().toISOString().split('T')[0];
-    return `v2.0.0 • ${date}`;
+    return `v${version} • ${date}`;
   }
 }
 
@@ -65,8 +70,16 @@ export default defineConfig({
     // Disable CSS code splitting for small sites (better caching)
     cssCodeSplit: false,
 
-    // Modern 2025: Minification with esbuild (20-40x faster than terser)
+    // Modern 2025 Vite 7: Lightning CSS for minification (faster than esbuild for CSS)
+    cssMinify: 'lightningcss',
+
+    // Modern 2025: Minification with esbuild for JS (20-40x faster than terser)
     minify: 'esbuild',
+
+    // Disable modulePreload polyfill (not needed for modern browsers)
+    modulePreload: {
+      polyfill: false,
+    },
 
     // Modern 2025: Asset inlining threshold (inline assets < 4KB)
     assetsInlineLimit: 4096, // 4KB threshold for base64 inline
@@ -87,8 +100,8 @@ export default defineConfig({
       },
     },
 
-    // Report compressed size (Vite 7+)
-    reportCompressedSize: true,
+    // Report compressed size with gzip (Vite 7+)
+    reportCompressedSize: 'gzip',
 
     // Strict chunk size limit for landing page (150 KB = realistic for small sites)
     chunkSizeWarningLimit: 150,

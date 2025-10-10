@@ -22,27 +22,38 @@
 }
 
 @theme {
-  /* Custom colors */
+  /* Custom colors - Modern 2025: light-dark() for automatic theme support */
   --color-primary-start: #667eea;
   --color-primary-end: #764ba2;
   --color-accent: #4CAF50;
   --color-accent-hover: #45a049;
 
   /* Badge background color (for Pro/Image badges) */
-  /* FIXED: oklch(from var(...)) doesn't work in @theme in Tailwind 4.1 */
   /* Using static oklch value based on primary-start color with 30% opacity */
   --color-badge-secondary: oklch(0.63 0.12 270 / 0.3);
 
-  /* Glassmorphism shared properties */
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-shadow: rgba(31, 38, 135, 0.37);
-  --glass-hover-shadow: rgba(102, 126, 234, 0.4);
+  /* Glassmorphism - Modern 2025: light-dark() for adaptive theming */
+  --glass-bg: light-dark(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.08));
+  --glass-border: light-dark(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.12));
+  --glass-shadow: light-dark(rgba(31, 38, 135, 0.37), rgba(0, 0, 0, 0.5));
+  --glass-hover-shadow: light-dark(rgba(102, 126, 234, 0.4), rgba(102, 126, 234, 0.5));
 
   /* Spacing & sizing */
   --hero-emoji-size: 5rem;
   --error-emoji-size: 8rem;
   --step-number-size: 2.5rem;
+}
+
+/* Fallback for browsers without light-dark() support */
+@media (prefers-color-scheme: dark) {
+  @supports not (color: light-dark(white, black)) {
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-shadow: rgba(0, 0, 0, 0.5);
+      --glass-hover-shadow: rgba(102, 126, 234, 0.5);
+    }
+  }
 }
 
 /* Keyframes for custom animations */
@@ -70,10 +81,16 @@
 }
 
 /* Starting style for smooth entry animations (Tailwind 4.1+) */
+/* Modern 2025: Specific selectors for better performance */
 @starting-style {
-  section {
+  #features,
+  #pricing,
+  #models,
+  #how-it-works,
+  #payment,
+  #cta {
     opacity: 0;
-    transform: translateY(1.25rem);
+    transform: translateY(20px);
   }
 }
 
@@ -401,8 +418,13 @@ section.visible {
 }
 
 /* Modern 2025: Text wrapping utilities */
+/* balance = for headings (1-4 lines), pretty = for paragraphs (better orphans/widows) */
 @utility text-balance {
   text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
 }
 
 /* Modern CSS 2025: Container Queries - cards adapt to container size */

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://cutcraft.cc/</loc>
     <lastmod>2025-10-10</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://cutcraft.cc/og-image.png</image:loc>
+      <image:title>CutCraft - AI Content Creation Bot</image:title>
+      <image:caption>AI генерация видео, изображений и текста в Telegram</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://cutcraft.cc/qr-code.webp</image:loc>
+      <image:title>QR-код для быстрого доступа к боту CutCraft</image:title>
+    </image:image>
   </url>
 </urlset>

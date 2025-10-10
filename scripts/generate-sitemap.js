@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Generate sitemap.xml with current date
- * This script runs during build to ensure lastmod is always up-to-date
+ * Generate sitemap.xml with current date and image extensions
+ * Modern 2025: Includes image:image for better SEO
  */
 
 import { writeFileSync } from 'fs';
@@ -15,12 +15,22 @@ const __dirname = dirname(__filename);
 const currentDate = new Date().toISOString().split('T')[0];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://cutcraft.cc/</loc>
     <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://cutcraft.cc/og-image.png</image:loc>
+      <image:title>CutCraft - AI Content Creation Bot</image:title>
+      <image:caption>AI генерация видео, изображений и текста в Telegram</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://cutcraft.cc/qr-code.webp</image:loc>
+      <image:title>QR-код для быстрого доступа к боту CutCraft</image:title>
+    </image:image>
   </url>
 </urlset>
 `;
@@ -29,4 +39,4 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 const outputPath = join(__dirname, '..', 'public', 'sitemap.xml');
 writeFileSync(outputPath, sitemap, 'utf8');
 
-console.log(`✅ Sitemap generated with date: ${currentDate}`);
+console.log(`✅ Sitemap generated with date: ${currentDate} (with image extensions)`);
