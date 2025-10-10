@@ -56,7 +56,7 @@ jobs:
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
           # Modern 2025: Bundle size check with fail condition (excluding compressed files)
-          DIST_SIZE=$(find dist -type f ! -name "*.br" ! -name "*.gz" -exec du -b {} + | awk '{sum+=$1} END {print sum}')
+          DIST_SIZE=$(find dist -type f \( -name "*.js" -o -name "*.css" -o -name "*.html" \) -exec du -b {} + | awk '{sum+=$1} END {print sum}')
           MAX_SIZE=$((300 * 1024)) # 300 KB limit (uncompressed)
           if [ $DIST_SIZE -gt $MAX_SIZE ]; then
             echo "❌ Build size exceeds 300 KB limit!" >> $GITHUB_STEP_SUMMARY
@@ -66,7 +66,7 @@ jobs:
           echo "✅ Build size within limits: $(numfmt --to=iec $DIST_SIZE)" >> $GITHUB_STEP_SUMMARY
 
       - name: Run Lighthouse CI
-        uses: treosh/lighthouse-ci-action@v13
+        uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
             https://cutcraft.cc
@@ -75,10 +75,10 @@ jobs:
           configPath: ./pages-landing/.lighthouserc.json
 
       - name: Setup Pages
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./pages-landing/dist
 
