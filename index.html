@@ -11,7 +11,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://t.me; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 
   <!-- Robots meta tags -->
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="robots" content="index, follow">
 
   <title>CutCraft - AI Content Creation Bot</title>
   <meta name="description" content="AI генерация видео, изображений и текста в Telegram. Sora 2, Veo 3, Nano Banana. Текст бесплатно!">
@@ -54,141 +54,51 @@
   <!-- Preconnect to external resources -->
   <link rel="preconnect" href="https://t.me" crossorigin>
 
-  <!-- JSON-LD Structured Data - WebApplication -->
+  <!-- JSON-LD Structured Data - Combined for better performance -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "CutCraft",
-    "description": "AI генерация видео (Sora 2, Veo 3), изображений (Nano Banana) и текста (DeepSeek, Qwen) в Telegram",
-    "url": "https://cutcraft.cc",
-    "applicationCategory": "MultimediaApplication",
-    "operatingSystem": "Telegram",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "description": "Бесплатная текстовая генерация"
-    }
-  }
-  </script>
-
-  <!-- JSON-LD Structured Data - HowTo -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Как использовать CutCraft для генерации AI контента",
-    "description": "Простая инструкция по созданию AI-контента с помощью CutCraft в Telegram",
-    "totalTime": "PT2M",
-    "step": [
+    "@graph": [
       {
-        "@type": "HowToStep",
-        "position": 1,
-        "name": "Открой бота",
-        "text": "Открой бота @CutCraftBot в Telegram",
-        "url": "https://cutcraft.cc/#how-it-works"
-      },
-      {
-        "@type": "HowToStep",
-        "position": 2,
-        "name": "Запусти бота",
-        "text": "Отправь команду /start для начала работы",
-        "url": "https://cutcraft.cc/#how-it-works"
-      },
-      {
-        "@type": "HowToStep",
-        "position": 3,
-        "name": "Создавай контент",
-        "text": "Используй доступные модели для генерации видео, изображений или текста",
-        "url": "https://cutcraft.cc/#models"
-      }
-    ]
-  }
-  </script>
-
-  <!-- Modern 2025: JSON-LD - Organization schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "CutCraft",
-    "url": "https://cutcraft.cc",
-    "logo": "https://cutcraft.cc/favicon.svg",
-    "sameAs": [
-      "https://t.me/CutCraftBot"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "Customer Support",
-      "availableLanguage": ["Russian", "English"]
-    }
-  }
-  </script>
-
-  <!-- Modern 2025: JSON-LD - FAQ schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Какие модели AI доступны в CutCraft?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "CutCraft предоставляет доступ к Sora 2 и Veo 3 для генерации видео, Nano Banana для изображений, а также DeepSeek V3.1 и Qwen 235B для текстовой генерации (бесплатно)."
+        "@type": "WebApplication",
+        "name": "CutCraft",
+        "description": "AI генерация видео (Sora 2, Veo 3), изображений (Nano Banana) и текста (DeepSeek, Qwen) в Telegram",
+        "url": "https://cutcraft.cc",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Telegram",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         }
       },
       {
-        "@type": "Question",
-        "name": "Сколько стоит генерация контента?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Текстовая генерация полностью бесплатна (0 токенов). Изображения стоят от 2 токенов, видео - от 30 токенов в зависимости от выбранной модели."
-        }
+        "@type": "Organization",
+        "name": "CutCraft",
+        "url": "https://cutcraft.cc",
+        "logo": "https://cutcraft.cc/favicon.svg",
+        "sameAs": ["https://t.me/CutCraftBot"]
       },
       {
-        "@type": "Question",
-        "name": "Как быстро генерируется контент?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Результат генерации обычно готов за 1-3 минуты в зависимости от типа контента и выбранной модели."
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Modern 2025: JSON-LD - BreadcrumbList schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Главная",
-        "item": "https://cutcraft.cc/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Возможности",
-        "item": "https://cutcraft.cc/#features"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Модели",
-        "item": "https://cutcraft.cc/#models"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "name": "Как это работает",
-        "item": "https://cutcraft.cc/#how-it-works"
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Какие модели AI доступны в CutCraft?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "CutCraft предоставляет доступ к Sora 2 и Veo 3 для генерации видео, Nano Banana для изображений, а также DeepSeek V3.1 и Qwen 235B для текстовой генерации (бесплатно)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Сколько стоит генерация контента?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Текстовая генерация полностью бесплатна (0 токенов). Изображения стоят от 2 токенов, видео - от 30 токенов."
+            }
+          }
+        ]
       }
     ]
   }

@@ -69,15 +69,26 @@ jobs:
           find dist -name "*.js" -o -name "*.css" | xargs ls -lh | awk '{print $5, $9}' >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
-          # Bundle size check (250 KB limit for better performance)
+          # Strict bundle size check (150 KB limit for landing pages)
           DIST_SIZE=$(find dist -type f \( -name "*.js" -o -name "*.css" -o -name "*.html" \) -exec du -b {} + | awk '{sum+=$1} END {print sum}')
-          MAX_SIZE=$((250 * 1024)) # 250 KB limit
+          MAX_SIZE=$((150 * 1024)) # 150 KB limit (strict for landing pages)
           if [ $DIST_SIZE -gt $MAX_SIZE ]; then
-            echo "❌ Build size exceeds 250 KB limit!" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Build size exceeds 150 KB limit!" >> $GITHUB_STEP_SUMMARY
             echo "   Current: $(numfmt --to=iec $DIST_SIZE)" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
           echo "✅ Build size within limits: $(numfmt --to=iec $DIST_SIZE)" >> $GITHUB_STEP_SUMMARY
+
+          # Validate manifest.json and robots.txt
+          if [ ! -f dist/manifest.json ]; then
+            echo "❌ Missing manifest.json!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          if [ ! -f dist/robots.txt ]; then
+            echo "❌ Missing robots.txt!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "✅ PWA manifest and robots.txt validated" >> $GITHUB_STEP_SUMMARY
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -107,7 +118,6 @@ jobs:
 
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
-        continue-on-error: true
         with:
           urls: |
             https://cutcraft.cc

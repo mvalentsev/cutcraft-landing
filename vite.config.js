@@ -93,10 +93,10 @@ export default defineConfig({
       },
     },
 
-    // Report compressed size
+    // Report compressed size (Vite 7+)
     reportCompressedSize: true,
 
-    // Increase chunk size warning limit (default: 500 KB)
-    chunkSizeWarningLimit: 600,
+    // Strict chunk size limit for landing page (150 KB = realistic for small sites)
+    chunkSizeWarningLimit: 150,
   },
 });
