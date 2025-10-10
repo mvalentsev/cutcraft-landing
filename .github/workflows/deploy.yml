@@ -44,14 +44,20 @@ jobs:
       - name: Validate HTML
         run: |
           echo "## 🔍 HTML Validation" >> $GITHUB_STEP_SUMMARY
-          if grep -r "style=" dist/*.html; then
+
+          # Check for inline styles in HTML files
+          if find dist -name "*.html" -exec grep -l "style=" {} + 2>/dev/null | grep -q .; then
             echo "❌ Found inline styles in HTML!" >> $GITHUB_STEP_SUMMARY
+            find dist -name "*.html" -exec grep -n "style=" {} + >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
-          if ! grep -q ".nojekyll" dist/; then
+
+          # Check for .nojekyll file
+          if [ ! -f dist/.nojekyll ]; then
             echo "❌ Missing .nojekyll file!" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
+
           echo "✅ HTML validation passed" >> $GITHUB_STEP_SUMMARY
 
       - name: Report build size
