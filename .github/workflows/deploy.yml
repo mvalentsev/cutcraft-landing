@@ -36,18 +36,13 @@ jobs:
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
-        run: |
-          cd pages-landing
-          bun install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Build
-        run: |
-          cd pages-landing
-          bun run build
+        run: bun run build
 
       - name: Report build size
         run: |
-          cd pages-landing
           echo "## 📦 Build Size Report" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           du -sh dist >> $GITHUB_STEP_SUMMARY
@@ -72,7 +67,7 @@ jobs:
             https://cutcraft.cc
           uploadArtifacts: true
           temporaryPublicStorage: true
-          configPath: ./pages-landing/.lighthouserc.json
+          configPath: ./.lighthouserc.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -80,7 +75,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./pages-landing/dist
+          path: ./dist
 
   deploy:
     name: Deploy
