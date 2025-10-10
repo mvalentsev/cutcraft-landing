@@ -23,6 +23,9 @@ function getVersion() {
 const version = getVersion();
 
 export default defineConfig({
+  // GitHub Pages base URL
+  base: '/',
+
   plugins: [
     tailwindcss(),
     // GitHub Pages plugin - copy .nojekyll to dist
@@ -67,15 +70,6 @@ export default defineConfig({
 
     // Modern 2025: Asset inlining threshold (inline assets < 4KB)
     assetsInlineLimit: 4096, // 4KB threshold for base64 inline
-
-    // Module preload configuration
-    modulePreload: {
-      polyfill: true,
-      resolveDependencies: (filename, deps) => {
-        // Preload all dependencies for critical paths
-        return deps;
-      },
-    },
 
     // Multiple entry points for SPA routing
     rollupOptions: {

@@ -46,16 +46,16 @@ function reportWebVitals() {
 
       // Modern 2025: Interaction to Next Paint (INP) - Chrome 96+ (widely available)
       // Track slow interactions (> 40ms) using Event Timing API
-      const inpObserver = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          // INP measures interaction latency (input delay + processing + presentation)
-          if (entry.duration && entry.interactionId) {
-            sendToAnalytics('INP', entry.duration);
-          }
-        }
-      });
-      // Use 'event-timing' (correct API), durationThreshold filters slow interactions
       if (PerformanceObserver.supportedEntryTypes.includes('event')) {
+        const inpObserver = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            // INP measures interaction latency (input delay + processing + presentation)
+            if (entry.duration && entry.interactionId) {
+              sendToAnalytics('INP', entry.duration);
+            }
+          }
+        });
+        // Use 'event' type (correct API), durationThreshold filters slow interactions
         inpObserver.observe({ type: 'event', buffered: true, durationThreshold: 40 });
       }
     } catch (error) {

@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-/* View Transitions API for smooth page navigation (modern browsers only) */
-@view-transition {
-  navigation: auto;
-}
-
 /* Modern CSS 2025: @property for animated custom properties */
 /* Allows smooth transitions/animations of custom properties with type safety */
 @property --gradient-angle {
