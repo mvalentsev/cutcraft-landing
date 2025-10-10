@@ -136,9 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
 
-    // Observe all sections (skip if reduced motion preferred)
+    // Observe all sections except hero (skip if reduced motion preferred)
     if (!prefersReducedMotion) {
-      document.querySelectorAll('section').forEach(section => {
+      document.querySelectorAll('section:not(#hero)').forEach(section => {
         observer.observe(section);
       });
     } else {
@@ -146,6 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('section').forEach(section => {
         section.classList.add('visible');
       });
+    }
+
+    // Hero is always visible (critical for LCP)
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+      heroSection.classList.add('visible');
     }
 
     // Smooth scroll for anchor links with View Transitions API support
