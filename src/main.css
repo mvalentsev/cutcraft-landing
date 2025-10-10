@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+/* View Transitions API for smooth page navigation (modern browsers only) */
+@view-transition {
+  navigation: auto;
+}
+
+/* Modern CSS 2025: @property for animated custom properties */
+/* Allows smooth transitions/animations of custom properties with type safety */
+@property --gradient-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --gradient-opacity {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
+/* Color properties for smooth color transitions */
+@property --color-primary-hue {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 270;
+}
+
 @theme {
   /* Custom colors */
   --color-primary-start: #667eea;
@@ -22,12 +48,6 @@
   --hero-emoji-size: 5rem;
   --error-emoji-size: 8rem;
   --step-number-size: 2.5rem;
-
-  /* Animation delays */
-  --delay-1: 0.1s;
-  --delay-2: 0.2s;
-  --delay-3: 0.3s;
-  --delay-4: 0.4s;
 }
 
 /* Keyframes for custom animations */
@@ -54,6 +74,14 @@
   }
 }
 
+/* Starting style for smooth entry animations (Tailwind 4.1+) */
+@starting-style {
+  section {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+}
+
 /* Accessibility: reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -65,19 +93,127 @@
   }
 }
 
+/* Modern 2025: High contrast mode support */
+@media (prefers-contrast: more) {
+  :root {
+    /* Increase contrast for better readability */
+    --glass-bg: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+
+  .feature-card,
+  .model-card,
+  .payment-card,
+  .card-glass {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .cta-button {
+    border: 2px solid white;
+    font-weight: 700;
+  }
+
+  /* Ensure text is always readable */
+  body {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Modern 2025: Low contrast mode support */
+@media (prefers-contrast: less) {
+  .feature-card,
+  .model-card,
+  .payment-card {
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Modern 2025: Enhanced focus-visible styles for keyboard navigation */
+*:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+a:focus-visible {
+  outline-color: white;
+  outline-width: 2px;
+}
+
+button:focus-visible,
+.cta-button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px rgba(76, 175, 80, 0.3);
+}
+
+/* Print styles */
+@media print {
+  /* Hide unnecessary elements */
+  footer,
+  .skip-link,
+  .cta-button,
+  #payment,
+  #cta {
+    display: none !important;
+  }
+
+  /* Reset colors for print */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Remove animations and transitions */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Simplify card styles */
+  .feature-card,
+  .model-card,
+  .payment-card,
+  .card-glass {
+    border: 1px solid #333 !important;
+    box-shadow: none !important;
+    background: white !important;
+    backdrop-filter: none !important;
+  }
+}
+
 /* Scroll animation trigger (not a utility, keep as class) */
 section.visible {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
 
+/* Modern CSS 2025: @scope for style isolation */
+/* Scopes card styles to prevent leakage - component-based approach */
+@scope (.feature-card, .model-card, .payment-card) to (:scope > *) {
+  /* Scoped hover effects - only applies within card scope */
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
 /* Glassmorphism base utility - reusable glass effect */
+/* Note: @utility directives must be at top level in Tailwind 4.1 */
 @utility card-glass {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px 0 var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  padding: 2rem;
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-block: 1px solid var(--glass-border);
+  border-inline: 1px solid var(--glass-border);
+  padding-block: 2rem;
+  padding-inline: 2rem;
   border-radius: 1rem;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -91,9 +227,11 @@ section.visible {
 @utility feature-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px 0 var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  padding: 2rem;
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-block: 1px solid var(--glass-border);
+  border-inline: 1px solid var(--glass-border);
+  padding-block: 2rem;
+  padding-inline: 2rem;
   border-radius: 1rem;
   text-align: center;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -101,6 +239,11 @@ section.visible {
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 40px var(--glass-hover-shadow);
+  }
+
+  /* Enhanced with :has() selector for nested interactions */
+  &:has(h3:hover) {
+    box-shadow: 0 14px 44px var(--glass-hover-shadow);
   }
 
   &:focus-visible {
@@ -113,9 +256,11 @@ section.visible {
 @utility payment-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px 0 var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  padding: 2rem;
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-block: 1px solid var(--glass-border);
+  border-inline: 1px solid var(--glass-border);
+  padding-block: 2rem;
+  padding-inline: 2rem;
   border-radius: 1rem;
   text-align: center;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -123,6 +268,11 @@ section.visible {
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 40px var(--glass-hover-shadow);
+  }
+
+  /* Enhanced with :has() selector for list interactions */
+  &:has(li:hover) {
+    box-shadow: 0 14px 44px var(--glass-hover-shadow);
   }
 
   &:focus-visible {
@@ -135,15 +285,22 @@ section.visible {
 @utility model-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px 0 var(--glass-shadow);
-  border: 1px solid var(--glass-border);
-  padding: 2rem;
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-block: 1px solid var(--glass-border);
+  border-inline: 1px solid var(--glass-border);
+  padding-block: 2rem;
+  padding-inline: 2rem;
   border-radius: 1rem;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
     transform: translateY(-0.25rem);
     box-shadow: 0 12px 40px var(--glass-hover-shadow);
+  }
+
+  /* Enhanced with :has() for badge interactions */
+  &:has(span:hover) {
+    transform: translateY(-0.5rem);
   }
 
   &:focus-visible {
@@ -158,16 +315,25 @@ section.visible {
   background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
   color: white;
   text-decoration: none;
-  padding: 1rem 2.5rem;
+  padding-block: 1rem;
+  padding-inline: 2.5rem;
   border-radius: 9999px;
   font-size: 1.25rem;
   font-weight: 600;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  /* Tailwind 4.1 text-shadow utility */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
   &:hover {
     transform: translateY(-0.125rem) scale(1.05);
     box-shadow: 0 12px 40px var(--glass-hover-shadow);
+    /* Enhanced text-shadow on hover */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0) scale(1);
   }
 
   &:focus-visible {
@@ -227,21 +393,21 @@ section.visible {
   animation: bounce-custom 2s infinite;
 }
 
-/* Animation delays for stagger effect */
+/* Animation delays for stagger effect - using native animation-delay */
 @utility delay-1 {
-  animation-delay: var(--delay-1);
+  animation-delay: 0.1s;
 }
 
 @utility delay-2 {
-  animation-delay: var(--delay-2);
+  animation-delay: 0.2s;
 }
 
 @utility delay-3 {
-  animation-delay: var(--delay-3);
+  animation-delay: 0.3s;
 }
 
 @utility delay-4 {
-  animation-delay: var(--delay-4);
+  animation-delay: 0.4s;
 }
 
 /* Skip to main content link */
@@ -257,6 +423,46 @@ section.visible {
 
   &:focus {
     top: 0;
+  }
+}
+
+/* Modern CSS 2025: Container Queries for responsive components */
+/* Cards adapt to their container size, not viewport - game changer! */
+@container (min-width: 400px) {
+  .feature-card,
+  .model-card,
+  .payment-card {
+    /* Larger padding when container allows */
+    padding-block: 2.5rem;
+    padding-inline: 2.5rem;
+  }
+}
+
+@container (min-width: 600px) {
+  .feature-card h3,
+  .model-card h3,
+  .payment-card h3 {
+    /* Larger headings in spacious containers */
+    font-size: 1.5rem;
+  }
+}
+
+/* Modern CSS 2025: color-mix() for dynamic color variations */
+/* Creates color variations on-the-fly without extra CSS variables */
+.card-glass {
+  /* Use color-mix for hover state - 20% lighter */
+  &:hover {
+    background: color-mix(in oklch, var(--glass-bg) 80%, white 20%);
+  }
+}
+
+.cta-button {
+  /* Dynamic hover color with color-mix */
+  &:hover {
+    background: linear-gradient(45deg,
+      color-mix(in oklch, var(--color-accent) 90%, white 10%),
+      color-mix(in oklch, var(--color-accent-hover) 90%, white 10%)
+    );
   }
 }
 

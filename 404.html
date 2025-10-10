@@ -3,28 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Modern 2025: Format detection control -->
+  <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+
+  <!-- Robots meta tags - don't index 404 page -->
+  <meta name="robots" content="noindex, nofollow">
+
   <title>404 - Страница не найдена | CutCraft</title>
   <meta name="description" content="Страница не найдена. Вернитесь на главную страницу CutCraft.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- Theme color for mobile browsers -->
-  <meta name="theme-color" content="#667eea">
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://cutcraft.cc/404">
+
+  <!-- Theme color for mobile browsers (with dark mode support) -->
+  <meta name="theme-color" content="#667eea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#4a5bb5" media="(prefers-color-scheme: dark)">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
 
   <!-- Preconnect to external resources -->
+  <link rel="dns-prefetch" href="https://t.me">
   <link rel="preconnect" href="https://t.me">
 </head>
 <body class="bg-primary-gradient min-h-screen text-white font-sans">
   <main>
     <section class="min-h-screen flex items-center justify-center text-center py-20 px-5">
       <div class="animate-fade-in">
-        <div class="error-emoji mb-5 animate-bounce-custom">🤷</div>
+        <div class="error-emoji mb-5 animate-bounce-custom" aria-hidden="true" role="presentation">🤷</div>
         <h1 class="text-6xl md:text-7xl mb-5 font-bold text-gradient">404</h1>
         <p class="text-2xl md:text-3xl mb-4 opacity-90">Страница не найдена</p>
         <p class="text-lg md:text-xl mb-10 opacity-70">Такой страницы не существует или она была удалена</p>
         <a href="/" class="cta-button" aria-label="Вернуться на главную страницу">
-          🏠 На главную
+          <span aria-hidden="true">🏠</span> На главную
         </a>
       </div>
     </section>

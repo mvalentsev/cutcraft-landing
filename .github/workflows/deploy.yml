@@ -31,15 +31,48 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile
+        run: |
+          cd pages-landing
+          bun install --frozen-lockfile
 
       - name: Build
-        run: bun run build
+        run: |
+          cd pages-landing
+          bun run build
+
+      - name: Report build size
+        run: |
+          cd pages-landing
+          echo "## 📦 Build Size Report" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          du -sh dist >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          find dist -name "*.js" -o -name "*.css" | xargs ls -lh | awk '{print $5, $9}' >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+          # Modern 2025: Bundle size check with fail condition
+          DIST_SIZE=$(du -sb dist | cut -f1)
+          MAX_SIZE=$((300 * 1024)) # 300 KB limit
+          if [ $DIST_SIZE -gt $MAX_SIZE ]; then
+            echo "❌ Build size exceeds 300 KB limit!" >> $GITHUB_STEP_SUMMARY
+            echo "   Current: $(du -sh dist | cut -f1)" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "✅ Build size within limits: $(du -sh dist | cut -f1)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://cutcraft.cc
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          configPath: ./pages-landing/.lighthouserc.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -47,7 +80,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./pages-landing/dist
 
   deploy:
     name: Deploy
