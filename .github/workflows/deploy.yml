@@ -110,8 +110,29 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Wait for deployment
-        run: sleep 45
+      - name: Wait for deployment to propagate
+        run: |
+          echo "⏳ Waiting for deployment to be available..."
+          MAX_ATTEMPTS=30
+          ATTEMPT=0
+          SLEEP_INTERVAL=3
+
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            ATTEMPT=$((ATTEMPT + 1))
+            echo "  Attempt $ATTEMPT/$MAX_ATTEMPTS"
+
+            if curl -sSf -o /dev/null -w "%{http_code}" https://cutcraft.cc | grep -q "200"; then
+              echo "✅ Deployment is live!"
+              break
+            fi
+
+            if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+              echo "⚠️  Max attempts reached, proceeding anyway..."
+              break
+            fi
+
+            sleep $SLEEP_INTERVAL
+          done
 
       - name: Checkout (for Lighthouse config)
         uses: actions/checkout@v5

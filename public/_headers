@@ -1,0 +1,62 @@
+# Security headers for GitHub Pages (Cloudflare Pages compatible)
+# Modern 2025: Strict security policies
+
+/*
+  # Content Security Policy (CSP)
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://t.me; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; frame-ancestors 'none'
+
+  # Permissions Policy (formerly Feature-Policy)
+  # Disable all unnecessary browser features
+  Permissions-Policy: accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(self), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
+
+  # Referrer Policy - strict privacy
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # X-Frame-Options - prevent clickjacking
+  X-Frame-Options: DENY
+
+  # X-Content-Type-Options - prevent MIME sniffing
+  X-Content-Type-Options: nosniff
+
+  # X-XSS-Protection - legacy XSS filter (deprecated but harmless)
+  X-XSS-Protection: 1; mode=block
+
+  # Strict-Transport-Security - force HTTPS (31536000 seconds = 1 year)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Cache-Control for HTML (no cache, must revalidate)
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/*.html
+  # HTML files should not be cached (always fresh content)
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+
+/assets/*.js
+  # JavaScript with hash - immutable, cache forever
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*.css
+  # CSS with hash - immutable, cache forever
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*.png
+/assets/*.jpg
+/assets/*.jpeg
+/assets/*.webp
+/assets/*.svg
+/assets/*.woff2
+  # Static assets - cache for 1 year
+  Cache-Control: public, max-age=31536000, immutable
+
+/sw.js
+  # Service Worker - cache for 1 day (needs to update regularly)
+  Cache-Control: public, max-age=86400
+
+/manifest.json
+  # PWA manifest - cache for 1 week
+  Cache-Control: public, max-age=604800
+
+/robots.txt
+/sitemap.xml
+  # SEO files - cache for 1 day
+  Cache-Control: public, max-age=86400

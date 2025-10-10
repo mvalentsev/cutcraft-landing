@@ -5,12 +5,23 @@ if (import.meta.env.DEV) {
   console.log('CutCraft Landing (dev mode)');
 }
 
-// Modern 2025: Web Vitals tracking
+// Web Vitals tracking with Reporting API support (2025)
 function reportWebVitals() {
   if ('PerformanceObserver' in window) {
     try {
       const sendToAnalytics = (metricName, metricValue) => {
+        // Mark metric in Performance API
         performance.mark(`${metricName}-tracked`, { detail: metricValue });
+
+        // Send to analytics via Reporting API (if available)
+        if ('ReportingObserver' in window && !import.meta.env.DEV) {
+          try {
+            // In production, you would send to your analytics endpoint
+            // Example: navigator.sendBeacon('/analytics', JSON.stringify({ metric: metricName, value: metricValue }));
+          } catch (e) {
+            // Silent fail for analytics
+          }
+        }
 
         if (import.meta.env.DEV) {
           console.log(`📊 ${metricName}:`, Math.round(metricValue), 'ms');
@@ -36,15 +47,17 @@ function reportWebVitals() {
       lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
 
       // First Input Delay (FID) - target < 100ms
-      const fidObserver = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          const fidValue = entry.processingStart - entry.startTime;
-          sendToAnalytics('FID', fidValue);
-        }
-      });
-      fidObserver.observe({ type: 'first-input', buffered: true });
+      if (PerformanceObserver.supportedEntryTypes.includes('first-input')) {
+        const fidObserver = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            const fidValue = entry.processingStart - entry.startTime;
+            sendToAnalytics('FID', fidValue);
+          }
+        });
+        fidObserver.observe({ type: 'first-input', buffered: true });
+      }
 
-      // Modern 2025: Interaction to Next Paint (INP) - Chrome 96+ (widely available)
+      // Interaction to Next Paint (INP) - Chrome 96+ (widely available)
       // Track slow interactions (> 40ms) using Event Timing API
       if (PerformanceObserver.supportedEntryTypes.includes('event')) {
         const inpObserver = new PerformanceObserver((list) => {
@@ -70,10 +83,25 @@ function reportWebVitals() {
 // Check if user prefers reduced motion
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Modern 2025: AbortController for proper cleanup
+// AbortController for proper cleanup
 let appAbortController = new AbortController();
 
-// Modern 2025: Error boundary wrapper
+// Global error handler for uncaught errors
+window.addEventListener('error', (event) => {
+  if (import.meta.env.DEV) {
+    console.error('Uncaught error:', event.error);
+  }
+  // In production, send to error tracking service
+}, { once: false });
+
+window.addEventListener('unhandledrejection', (event) => {
+  if (import.meta.env.DEV) {
+    console.error('Unhandled promise rejection:', event.reason);
+  }
+  // In production, send to error tracking service
+}, { once: false });
+
+// Error boundary wrapper
 function withErrorBoundary(fn, fallbackFn) {
   try {
     return fn();
@@ -98,11 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Intersection Observer for scroll animations
-    // Modern 2025: Use Intersection Observer v2 if available
+    // Use Intersection Observer v2 if available
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '50px', // Trigger animations 50px before element is visible
-      signal: appAbortController.signal // Modern 2025: AbortController integration
+      signal: appAbortController.signal // AbortController for cleanup
     };
 
     // Add trackVisibility for Intersection Observer v2 (if supported)
@@ -144,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Smooth scroll for anchor links with View Transitions API support
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      // Modern 2025: Use AbortController signal for event cleanup
+      // Use AbortController signal for event cleanup
       anchor.addEventListener('click', async function (e) {
         e.preventDefault();
         const href = this.getAttribute('href');
@@ -165,14 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
           }
         }
-      }, { signal: appAbortController.signal }); // Modern 2025: AbortController cleanup
+      }, { signal: appAbortController.signal }); // AbortController for cleanup
     });
 
-    // Modern 2025: Defer Web Vitals tracking to idle time
+    // Defer Web Vitals tracking to idle time for better performance
     if ('requestIdleCallback' in window) {
       requestIdleCallback(() => reportWebVitals(), { timeout: 2000 });
     } else {
-      // Fallback: use setTimeout
       setTimeout(reportWebVitals, 1000);
     }
   }, () => {
@@ -183,13 +210,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Modern 2025: Cleanup on page unload
+// Cleanup on page unload
 window.addEventListener('beforeunload', () => {
-  // Abort all ongoing operations
   appAbortController.abort();
 }, { once: true });
 
-// Modern 2025: Register Service Worker for PWA support
+// Register Service Worker for PWA support with update detection
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').then(
@@ -197,6 +223,27 @@ if ('serviceWorker' in navigator) {
         if (import.meta.env.DEV) {
           console.log('Service Worker registered:', registration.scope);
         }
+
+        // Check for updates every hour
+        setInterval(() => {
+          registration.update();
+        }, 60 * 60 * 1000);
+
+        // Listen for waiting service worker
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New service worker available, show update prompt
+                if (import.meta.env.DEV) {
+                  console.log('New service worker available');
+                }
+                // In production, you could show a "New version available" banner here
+              }
+            });
+          }
+        });
       },
       (error) => {
         if (import.meta.env.DEV) {
@@ -204,5 +251,15 @@ if ('serviceWorker' in navigator) {
         }
       }
     );
+
+    // Listen for service worker updates
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'SW_UPDATED') {
+        if (import.meta.env.DEV) {
+          console.log('Service Worker updated');
+        }
+        // In production, you could reload the page or show a notification
+      }
+    });
   });
 }

@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-/* Modern CSS 2025: @property for animated custom properties */
-/* Allows smooth transitions/animations of custom properties with type safety */
+/* @property for animated custom properties (typed CSS variables) */
 @property --gradient-angle {
   syntax: '<angle>';
   inherits: false;
@@ -14,7 +13,6 @@
   initial-value: 1;
 }
 
-/* Color properties for smooth color transitions */
 @property --color-primary-hue {
   syntax: '<number>';
   inherits: false;
@@ -22,29 +20,26 @@
 }
 
 @theme {
-  /* Custom colors - Modern 2025: light-dark() for automatic theme support */
+  /* Brand colors */
   --color-primary-start: #667eea;
   --color-primary-end: #764ba2;
   --color-accent: #4CAF50;
   --color-accent-hover: #45a049;
-
-  /* Badge background color (for Pro/Image badges) */
-  /* Using static oklch value based on primary-start color with 30% opacity */
   --color-badge-secondary: oklch(0.63 0.12 270 / 0.3);
 
-  /* Glassmorphism - Modern 2025: light-dark() for adaptive theming */
+  /* Glassmorphism with light-dark() theming */
   --glass-bg: light-dark(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.08));
   --glass-border: light-dark(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.12));
   --glass-shadow: light-dark(rgba(31, 38, 135, 0.37), rgba(0, 0, 0, 0.5));
   --glass-hover-shadow: light-dark(rgba(102, 126, 234, 0.4), rgba(102, 126, 234, 0.5));
 
-  /* Spacing & sizing */
+  /* Component sizing */
   --hero-emoji-size: 5rem;
   --error-emoji-size: 8rem;
   --step-number-size: 2.5rem;
 }
 
-/* Fallback for browsers without light-dark() support */
+/* light-dark() fallback for older browsers */
 @media (prefers-color-scheme: dark) {
   @supports not (color: light-dark(white, black)) {
     :root {
@@ -80,8 +75,7 @@
   }
 }
 
-/* Starting style for smooth entry animations (Tailwind 4.1+) */
-/* Modern 2025: Specific selectors for better performance */
+/* @starting-style for entry animations (specific selectors for performance) */
 @starting-style {
   #features,
   #pricing,
@@ -94,7 +88,7 @@
   }
 }
 
-/* Accessibility: reduce motion for users who prefer it */
+/* Accessibility: reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -105,7 +99,7 @@
   }
 }
 
-/* Modern 2025: High contrast mode support */
+/* High contrast mode support */
 @media (prefers-contrast: more) {
   :root {
     /* Increase contrast for better readability */
@@ -131,7 +125,7 @@
   }
 }
 
-/* Modern 2025: Low contrast mode support */
+/* Low contrast mode support */
 @media (prefers-contrast: less) {
   .feature-card,
   .model-card,
@@ -141,7 +135,7 @@
   }
 }
 
-/* Modern 2025: Enhanced focus-visible styles for keyboard navigation */
+/* Enhanced focus styles for keyboard navigation */
 *:focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 3px;
@@ -201,16 +195,13 @@ button:focus-visible,
   }
 }
 
-/* Scroll animation trigger (not a utility, keep as class) */
+/* Scroll animation trigger */
 section.visible {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
 
-/* Modern CSS 2025: @scope removed - not needed for simple cards */
-/* Hover effects are already scoped in @utility definitions below */
-
-/* Glassmorphism base utility - reusable glass effect */
+/* Glassmorphism base utility */
 @utility card-glass {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -253,7 +244,7 @@ section.visible {
     box-shadow: 0 12px 40px var(--glass-hover-shadow);
   }
 
-  /* Modern 2025: :has() selector for nested element interactions */
+  /* :has() selector for interactive elements */
   &:has(h3:hover, li:hover) {
     box-shadow: 0 14px 44px var(--glass-hover-shadow);
   }
@@ -293,7 +284,7 @@ section.visible {
     box-shadow: 0 12px 40px var(--glass-hover-shadow);
   }
 
-  /* Modern 2025: :has() selector for badge interactions */
+  /* Enhanced hover for badge interactions */
   &:has(span:hover) {
     transform: translateY(-0.5rem);
   }
@@ -304,7 +295,7 @@ section.visible {
   }
 }
 
-/* CTA button utility - Modern 2025: Tailwind 4.1 text-shadow-* */
+/* CTA button utility */
 @utility cta-button {
   display: inline-block;
   background: linear-gradient(45deg, var(--color-accent), var(--color-accent-hover));
@@ -417,8 +408,7 @@ section.visible {
   }
 }
 
-/* Modern 2025: Text wrapping utilities */
-/* balance = for headings (1-4 lines), pretty = for paragraphs (better orphans/widows) */
+/* Text wrapping utilities (balance for headings, pretty for paragraphs) */
 @utility text-balance {
   text-wrap: balance;
 }
@@ -427,7 +417,7 @@ section.visible {
   text-wrap: pretty;
 }
 
-/* Modern CSS 2025: Container Queries - cards adapt to container size */
+/* Container Queries for responsive cards */
 @container card (min-width: 400px) {
   .feature-card,
   .payment-card {

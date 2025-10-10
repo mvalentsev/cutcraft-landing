@@ -1,16 +1,14 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { execSync } from 'child_process';
-import { copyFileSync, readFileSync } from 'fs';
+import { copyFileSync, readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
 /**
- * Get git commit hash and build version for cache busting
+ * Get git hash and version for cache busting
  * Format: v{version} ({hash}) • {date}
- * Version is read from package.json (DRY principle)
  */
 function getVersion() {
-  // Read version from package.json
   const packageJson = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
   const version = packageJson.version;
 
@@ -19,7 +17,6 @@ function getVersion() {
     const date = new Date().toISOString().split('T')[0];
     return `v${version} (${commitHash}) • ${date}`;
   } catch {
-    // Fallback if git is not available (e.g., in CI without git history)
     const date = new Date().toISOString().split('T')[0];
     return `v${version} • ${date}`;
   }
@@ -33,27 +30,44 @@ export default defineConfig({
 
   plugins: [
     tailwindcss(),
-    // GitHub Pages plugin - copy .nojekyll to dist
+    // GitHub Pages plugin - copy .nojekyll and process sw.js with version injection
     {
       name: 'github-pages-setup',
       closeBundle() {
+        // Copy .nojekyll
         const nojekyllPath = resolve(__dirname, 'public', '.nojekyll');
-        const distPath = resolve(__dirname, 'dist', '.nojekyll');
+        const distNojekyllPath = resolve(__dirname, 'dist', '.nojekyll');
         try {
-          copyFileSync(nojekyllPath, distPath);
+          copyFileSync(nojekyllPath, distNojekyllPath);
           console.log('✅ Copied .nojekyll to dist/');
         } catch (error) {
           console.warn('⚠️  Could not copy .nojekyll:', error.message);
+        }
+
+        // Process sw.js with dynamic version injection
+        const swSourcePath = resolve(__dirname, 'public', 'sw.js');
+        const swDistPath = resolve(__dirname, 'dist', 'sw.js');
+        try {
+          let swContent = readFileSync(swSourcePath, 'utf8');
+          // Replace hardcoded version with dynamic version from package.json
+          swContent = swContent.replace(
+            /const CACHE_NAME = ['"]cutcraft-landing-v[\d.]+['"];/,
+            `const CACHE_NAME = 'cutcraft-landing-${version}';`
+          );
+          writeFileSync(swDistPath, swContent, 'utf8');
+          console.log(`✅ Processed sw.js with version: ${version}`);
+        } catch (error) {
+          console.warn('⚠️  Could not process sw.js:', error.message);
         }
       },
     },
   ],
 
-  // Development server optimization (Vite 7.0+)
+  // Development server (Vite 7+)
   server: {
-    // Warmup frequently used files for faster HMR
+    // Warmup critical files for faster initial HMR
     warmup: {
-      clientFiles: ['./src/app.js', './src/main.css'],
+      clientFiles: ['./src/app.js', './src/main.css', './index.html'],
     },
   },
 
@@ -63,47 +77,36 @@ export default defineConfig({
   },
 
   build: {
-    // Vite 7.0+ default target: Baseline Widely Available (2025-05-01)
-    // Targets: Chrome 107+, Edge 107+, Firefox 104+, Safari 16+
+    // Vite 7 target: Baseline Widely Available (Chrome 107+, Edge 107+, Firefox 104+, Safari 16+)
     target: 'baseline-widely-available',
 
-    // Disable CSS code splitting for small sites (better caching)
-    cssCodeSplit: false,
+    // Rolldown (Vite 7 experimental):
+    // To use Rolldown instead of Rollup/esbuild for 5-10x faster builds:
+    // 1. npm install rolldown-vite (or bun add rolldown-vite)
+    // 2. Replace 'vite' with 'rolldown-vite' in package.json
+    // 3. No config changes needed - drop-in replacement
+    // See: https://rolldown.rs/
 
-    // Modern 2025 Vite 7: Lightning CSS for minification (faster than esbuild for CSS)
-    cssMinify: 'lightningcss',
+    cssCodeSplit: false, // Single CSS file for better caching on small sites
+    cssMinify: 'lightningcss', // Vite 7: Lightning CSS (faster than esbuild for CSS)
+    minify: 'esbuild', // esbuild for JS (20-40x faster than terser)
+    modulePreload: { polyfill: false }, // Not needed for modern browsers
+    assetsInlineLimit: 4096, // Inline assets < 4KB as base64
 
-    // Modern 2025: Minification with esbuild for JS (20-40x faster than terser)
-    minify: 'esbuild',
-
-    // Disable modulePreload polyfill (not needed for modern browsers)
-    modulePreload: {
-      polyfill: false,
-    },
-
-    // Modern 2025: Asset inlining threshold (inline assets < 4KB)
-    assetsInlineLimit: 4096, // 4KB threshold for base64 inline
-
-    // Multiple entry points for proper routing
     rollupOptions: {
       input: {
         main: '/index.html',
         404: '/404.html',
       },
       output: {
-        // Manual chunks for better caching (small site: no chunking needed)
-        manualChunks: undefined,
-        // Asset naming with hash for cache busting
+        manualChunks: undefined, // No chunking for small sites
         assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
       },
     },
 
-    // Report compressed size with gzip (Vite 7+)
-    reportCompressedSize: 'gzip',
-
-    // Strict chunk size limit for landing page (150 KB = realistic for small sites)
-    chunkSizeWarningLimit: 150,
+    reportCompressedSize: 'gzip', // Report gzipped sizes
+    chunkSizeWarningLimit: 150, // Warn if chunk > 150KB
   },
 });

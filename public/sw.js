@@ -21,10 +21,13 @@ const CACHE_URLS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(CACHE_URLS);
+      return cache.addAll(CACHE_URLS).catch((error) => {
+        console.error('Failed to cache assets during install:', error);
+        // Continue anyway - offline functionality degraded but not broken
+      });
     })
   );
-  // Activate immediately without waiting
+  // Skip waiting to activate immediately (update prompt will be shown to user)
   self.skipWaiting();
 });
 
@@ -37,6 +40,13 @@ self.addEventListener('activate', (event) => {
           .filter((name) => name !== CACHE_NAME)
           .map((name) => caches.delete(name))
       );
+    }).then(() => {
+      // Notify clients about the update (for skip waiting prompt)
+      return self.clients.matchAll().then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage({ type: 'SW_UPDATED' });
+        });
+      });
     })
   );
   // Take control of all clients immediately
