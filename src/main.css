@@ -406,7 +406,7 @@ section.visible {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--color-accent);
+  background: #1B5E20;
   color: white;
   padding: 0.5rem 1rem;
   text-decoration: none;
