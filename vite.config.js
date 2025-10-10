@@ -84,7 +84,7 @@ export default defineConfig({
     // Modern 2025: Asset inlining threshold (inline assets < 4KB)
     assetsInlineLimit: 4096, // 4KB threshold for base64 inline
 
-    // Multiple entry points for SPA routing
+    // Multiple entry points for proper routing
     rollupOptions: {
       input: {
         main: '/index.html',

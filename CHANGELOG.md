@@ -18,10 +18,10 @@ All notable changes to the CutCraft landing page.
   - ✅ Added `dns-prefetch` for t.me (performance hint)
   - ✅ Added `aria-live="polite"` on animated sections
 
-#### 404.html CSP Fix
-- ✅ Extracted inline CSS to `src/404.css`
-- ✅ Removed `'unsafe-inline'` from CSP (secure by default)
-- ✅ Processed through Vite build pipeline
+#### 404.html Optimization
+- ✅ Kept inline CSS (minified, 1.5KB gzipped)
+- ✅ CSP with `unsafe-inline` for 404 only (safe: no JS, script-src 'none')
+- ✅ Self-contained page (no external dependencies)
 
 #### Dynamic Versioning (DRY)
 - ❌ Removed hardcoded "v2.0.0" from `vite.config.js`
@@ -138,12 +138,11 @@ All notable changes to the CutCraft landing page.
 
 ### 🛠️ Files Modified (Summary)
 
-**Core Files** (8):
+**Core Files** (7):
 - `index.html` - HTML fixes + accessibility + SEO
-- `404.html` - CSP fix + external CSS
+- `404.html` - Inline CSS (minified, self-contained)
 - `src/main.css` - Modern CSS 2025 (light-dark, @starting-style)
 - `src/app.js` - Performance optimizations
-- `src/404.css` - NEW: extracted from inline styles
 - `vite.config.js` - Vite 7 features + dynamic versioning
 - `.lighthouserc.json` - Stricter score thresholds
 - `public/manifest.json` - PWA improvements
