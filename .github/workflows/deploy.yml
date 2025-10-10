@@ -81,7 +81,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Wait for deployment
-        run: sleep 30
+        run: sleep 60
 
       - name: Checkout (for Lighthouse config)
         uses: actions/checkout@v4

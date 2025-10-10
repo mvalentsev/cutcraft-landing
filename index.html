@@ -8,8 +8,8 @@
   <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
 
   <!-- Content Security Policy - Modern 2025: Stricter with inline styles hashed -->
-  <!-- TODO: In production, replace 'unsafe-inline' with nonce-based CSP for maximum security -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://t.me; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
+  <!-- Note: frame-ancestors removed (not supported in meta tag, use HTTP header instead) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://t.me; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 
   <!-- Robots meta tags -->
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -219,6 +219,7 @@
   <!-- Features Section -->
   <section class="py-20 px-5 bg-black/20 opacity-0 translate-y-5 transition-all duration-[600ms]" id="features">
     <div class="max-w-7xl mx-auto">
+      <h2 class="text-4xl md:text-5xl mb-10 text-center font-bold" style="text-wrap: balance;">Возможности</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="feature-card opacity-0 translate-y-5 animate-fade-in delay-1">
           <div class="text-5xl mb-4" aria-hidden="true" role="presentation">💬</div>
