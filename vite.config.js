@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
-import { compression } from 'vite-plugin-compression2';
 import { execSync } from 'child_process';
+import { copyFileSync } from 'fs';
+import { resolve } from 'path';
 
 /**
  * Get git commit hash and build version for cache busting
@@ -24,20 +25,20 @@ const version = getVersion();
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    // Brotli compression (better than gzip, ~20% smaller)
-    compression({
-      algorithm: 'brotliCompress',
-      exclude: [/\.(br)$/, /\.(gz)$/],
-      threshold: 1024, // Only compress files > 1KB
-      deleteOriginalAssets: false,
-    }),
-    // Gzip compression (fallback for older servers)
-    compression({
-      algorithm: 'gzip',
-      exclude: [/\.(br)$/, /\.(gz)$/],
-      threshold: 1024,
-      deleteOriginalAssets: false,
-    }),
+    // GitHub Pages plugin - copy .nojekyll to dist
+    {
+      name: 'github-pages-setup',
+      closeBundle() {
+        const nojekyllPath = resolve(__dirname, 'public', '.nojekyll');
+        const distPath = resolve(__dirname, 'dist', '.nojekyll');
+        try {
+          copyFileSync(nojekyllPath, distPath);
+          console.log('✅ Copied .nojekyll to dist/');
+        } catch (error) {
+          console.warn('⚠️  Could not copy .nojekyll:', error.message);
+        }
+      },
+    },
   ],
 
   // Development server optimization (Vite 7.0+)

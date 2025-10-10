@@ -1,34 +1,16 @@
 import './main.css';
 
-// Modern 2025: Version logging (dev mode only)
-// eslint-disable-next-line no-undef -- __APP_VERSION__ is replaced by Vite build plugin at build time
+// Version logging
 if (import.meta.env.DEV) {
   console.log('CutCraft Landing (dev mode)');
-} else {
-  try {
-    // __APP_VERSION__ is only available in production builds
-    console.log(`CutCraft Landing ${__APP_VERSION__}`);
-  } catch {
-    // Fallback if build fails to inject version
-  }
 }
 
-// Modern 2025: Web Vitals tracking with analytics integration
+// Modern 2025: Web Vitals tracking
 function reportWebVitals() {
-  // Track Core Web Vitals with proper metric reporting
   if ('PerformanceObserver' in window) {
     try {
       const sendToAnalytics = (metricName, metricValue) => {
-        // Track metric with Performance API
         performance.mark(`${metricName}-tracked`, { detail: metricValue });
-
-        // TODO: Send to analytics service (Google Analytics 4, Plausible, etc.)
-        // if (window.gtag) {
-        //   window.gtag('event', metricName, { value: Math.round(metricValue) });
-        // }
-        // if (window.plausible) {
-        //   window.plausible('Web Vital', { props: { metric: metricName, value: Math.round(metricValue) } });
-        // }
 
         if (import.meta.env.DEV) {
           console.log(`📊 ${metricName}:`, Math.round(metricValue), 'ms');
@@ -94,10 +76,6 @@ function withErrorBoundary(fn, fallbackFn) {
     if (import.meta.env.DEV) {
       console.error('Error boundary caught:', error);
     }
-    // Send to error tracking service (Sentry, etc.)
-    // if (window.Sentry) {
-    //   window.Sentry.captureException(error);
-    // }
     return fallbackFn ? fallbackFn() : null;
   }
 }
@@ -187,11 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Track Web Vitals
     reportWebVitals();
   }, () => {
-    // Modern 2025: Fallback if initialization fails
-    if (import.meta.env.DEV) {
-      console.error('Landing page initialization failed, using fallback');
-    }
-    // Ensure all sections are visible even if observer fails
+    // Fallback: ensure all sections are visible if observer fails
     document.querySelectorAll('section').forEach(section => {
       section.classList.add('visible');
     });

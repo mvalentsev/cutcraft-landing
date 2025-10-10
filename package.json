@@ -12,7 +12,6 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.14",
     "tailwindcss": "^4.1.14",
-    "vite": "^7.1.9",
-    "vite-plugin-compression2": "^2.2.1"
+    "vite": "^7.1.9"
   }
 }

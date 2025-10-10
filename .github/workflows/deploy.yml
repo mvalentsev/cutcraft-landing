@@ -41,6 +41,19 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Validate HTML
+        run: |
+          echo "## 🔍 HTML Validation" >> $GITHUB_STEP_SUMMARY
+          if grep -r "style=" dist/*.html; then
+            echo "❌ Found inline styles in HTML!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          if ! grep -q ".nojekyll" dist/; then
+            echo "❌ Missing .nojekyll file!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "✅ HTML validation passed" >> $GITHUB_STEP_SUMMARY
+
       - name: Report build size
         run: |
           echo "## 📦 Build Size Report" >> $GITHUB_STEP_SUMMARY
@@ -50,11 +63,11 @@ jobs:
           find dist -name "*.js" -o -name "*.css" | xargs ls -lh | awk '{print $5, $9}' >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
-          # Modern 2025: Bundle size check with fail condition (excluding compressed files)
+          # Bundle size check (250 KB limit for better performance)
           DIST_SIZE=$(find dist -type f \( -name "*.js" -o -name "*.css" -o -name "*.html" \) -exec du -b {} + | awk '{sum+=$1} END {print sum}')
-          MAX_SIZE=$((300 * 1024)) # 300 KB limit (uncompressed)
+          MAX_SIZE=$((250 * 1024)) # 250 KB limit
           if [ $DIST_SIZE -gt $MAX_SIZE ]; then
-            echo "❌ Build size exceeds 300 KB limit!" >> $GITHUB_STEP_SUMMARY
+            echo "❌ Build size exceeds 250 KB limit!" >> $GITHUB_STEP_SUMMARY
             echo "   Current: $(numfmt --to=iec $DIST_SIZE)" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi

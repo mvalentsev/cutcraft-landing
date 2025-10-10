@@ -195,17 +195,10 @@ section.visible {
   transform: translateY(0) !important;
 }
 
-/* Modern CSS 2025: @scope for style isolation */
-/* Scopes card styles to prevent leakage - component-based approach */
-@scope (.feature-card, .model-card, .payment-card) to (:scope > *) {
-  /* Scoped hover effects - only applies within card scope */
-  &:hover {
-    transform: scale(1.05);
-  }
-}
+/* Modern CSS 2025: @scope removed - not needed for simple cards */
+/* Hover effects are already scoped in @utility definitions below */
 
 /* Glassmorphism base utility - reusable glass effect */
-/* Note: @utility directives must be at top level in Tailwind 4.1 */
 @utility card-glass {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -216,6 +209,11 @@ section.visible {
   padding-inline: 2rem;
   border-radius: 1rem;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  container-type: inline-size;
+
+  &:hover {
+    background: color-mix(in oklch, var(--glass-bg) 80%, white 20%);
+  }
 
   &:focus-visible {
     outline: 2px solid var(--color-accent);
@@ -223,7 +221,7 @@ section.visible {
   }
 }
 
-/* Feature cards - centered content with scale hover */
+/* DRY: Base card with scale hover (shared between feature and payment cards) */
 @utility feature-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -235,6 +233,8 @@ section.visible {
   border-radius: 1rem;
   text-align: center;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  container-type: inline-size;
+  container-name: card;
 
   &:hover {
     transform: scale(1.05);
@@ -252,7 +252,7 @@ section.visible {
   }
 }
 
-/* Payment card - same as feature-card (DRY principle) */
+/* Payment card - identical to feature-card (DRY) */
 @utility payment-card {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -264,14 +264,15 @@ section.visible {
   border-radius: 1rem;
   text-align: center;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  container-type: inline-size;
+  container-name: card;
 
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 40px var(--glass-hover-shadow);
   }
 
-  /* Modern 2025: :has() selector for list interactions */
-  &:has(li:hover) {
+  &:has(h3:hover, li:hover) {
     box-shadow: 0 14px 44px var(--glass-hover-shadow);
   }
 
@@ -292,13 +293,15 @@ section.visible {
   padding-inline: 2rem;
   border-radius: 1rem;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  container-type: inline-size;
+  container-name: model;
 
   &:hover {
     transform: translateY(-0.25rem);
     box-shadow: 0 12px 40px var(--glass-hover-shadow);
   }
 
-  /* Enhanced with :has() for badge interactions */
+  /* Modern 2025: :has() selector for badge interactions */
   &:has(span:hover) {
     transform: translateY(-0.5rem);
   }
@@ -435,32 +438,37 @@ section.visible {
   }
 }
 
-/* Modern CSS 2025: Container Queries for responsive components */
-/* Cards adapt to their container size, not viewport - game changer! */
-@container (min-width: 400px) {
+/* Modern 2025: Text wrapping utilities */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Modern CSS 2025: Container Queries - cards adapt to container size */
+@container card (min-width: 400px) {
   .feature-card,
-  .model-card,
   .payment-card {
-    /* Larger padding when container allows */
     padding-block: 2.5rem;
     padding-inline: 2.5rem;
   }
 }
 
-@container (min-width: 600px) {
+@container model (min-width: 400px) {
+  .model-card {
+    padding-block: 2.5rem;
+    padding-inline: 2.5rem;
+  }
+}
+
+@container card (min-width: 600px) {
   .feature-card h3,
-  .model-card h3,
   .payment-card h3 {
-    /* Larger headings in spacious containers */
     font-size: 1.5rem;
   }
 }
 
-/* Modern CSS 2025: color-mix() for dynamic color variations */
-/* Creates color variations on-the-fly without extra CSS variables */
-.card-glass:hover {
-  background: color-mix(in oklch, var(--glass-bg) 80%, white 20%);
+@container model (min-width: 600px) {
+  .model-card h3 {
+    font-size: 1.5rem;
+  }
 }
-
-/* Note: cta-button hover colors are defined in @utility section above */
 
