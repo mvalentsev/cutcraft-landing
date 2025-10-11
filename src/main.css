@@ -27,11 +27,13 @@
   --color-accent-hover: #45a049;
   --color-badge-secondary: oklch(0.63 0.12 270 / 0.3);
 
-  /* Glassmorphism with light-dark() theming (high opacity for strong visibility) */
-  --glass-bg: light-dark(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.20));
-  --glass-border: light-dark(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.30));
-  --glass-shadow: light-dark(rgba(31, 38, 135, 0.37), rgba(0, 0, 0, 0.5));
-  --glass-hover-shadow: light-dark(rgba(102, 126, 234, 0.4), rgba(102, 126, 234, 0.5));
+  /* Glassmorphism (high opacity for strong visibility) */
+  /* NOTE: Using simple rgba() instead of light-dark() due to Lightning CSS compilation bug */
+  /* Lightning CSS compiles light-dark() to invalid syntax: var()var() without space */
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.35);
+  --glass-shadow: rgba(31, 38, 135, 0.37);
+  --glass-hover-shadow: rgba(102, 126, 234, 0.4);
 
   /* Component sizing */
   --hero-emoji-size: 5rem;
@@ -39,17 +41,8 @@
   --step-number-size: 2.5rem;
 }
 
-/* light-dark() fallback for older browsers */
-@media (prefers-color-scheme: dark) {
-  @supports not (color: light-dark(white, black)) {
-    :root {
-      --glass-bg: rgba(255, 255, 255, 0.20);
-      --glass-border: rgba(255, 255, 255, 0.30);
-      --glass-shadow: rgba(0, 0, 0, 0.5);
-      --glass-hover-shadow: rgba(102, 126, 234, 0.5);
-    }
-  }
-}
+/* Dark mode: using same values (gradient background works for both light/dark) */
+/* Removed light-dark() fallback - not needed with simple rgba() */
 
 /* Keyframes for custom animations */
 @keyframes fade-in {
