@@ -162,11 +162,13 @@ All notable changes to the CutCraft landing page.
 
 #### UX Improvements
 - **404.html**: Reverted to inline CSS (Vite complexity, safe with CSP)
-- **Glassmorphism**: Increased opacity for better card visibility
-  - Background: 0.10 → 0.15 (light), 0.08 → 0.12 (dark)
-  - Border: 0.18 → 0.25 (light), 0.12 → 0.2 (dark)
-  - High contrast: 0.2 → 0.25
-- **Impact**: Cards no longer blend with background on scroll ✅
+- **Glassmorphism**: Increased opacity for better card visibility (2 iterations)
+  - **Iteration 1**: Background: 0.10 → 0.15 (light), 0.08 → 0.12 (dark)
+  - **Iteration 2**: Background: 0.15 → 0.25 (light), 0.12 → 0.20 (dark)
+  - **Iteration 1**: Border: 0.18 → 0.25 (light), 0.12 → 0.2 (dark)
+  - **Iteration 2**: Border: 0.25 → 0.35 (light), 0.20 → 0.30 (dark)
+  - **High contrast**: 0.25 → 0.35 (bg), 0.40 → 0.50 (border)
+- **Impact**: Strong card visibility against gradient background ✅
 
 ---
 
