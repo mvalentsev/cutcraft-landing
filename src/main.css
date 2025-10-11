@@ -75,9 +75,14 @@
   }
 }
 
+/* Default state for sections - fully visible */
+section {
+  opacity: 1;
+  transition: transform 0.6s ease-out;
+}
+
 /* @starting-style for entry animations (specific selectors for performance) */
-/* NOTE: Removed opacity to prevent card visibility issues during transition */
-/* Cards inside sections have their own glassmorphism opacity, parent opacity multiplies it */
+/* NOTE: Only transform animation - opacity stays at 1 to prevent card transparency */
 @starting-style {
   #features,
   #pricing,
