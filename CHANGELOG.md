@@ -152,6 +152,16 @@ All notable changes to the CutCraft landing page.
 
 ---
 
+### 🐛 Post-Deploy Fixes (after Lighthouse CI)
+
+#### Best Practices 0.96 → 1.0
+- **Removed**: `frame-ancestors 'none'` from meta CSP (CSP spec: only in HTTP headers)
+- **Removed**: `fetchpriority="high"` from h1 (valid only for img/link/script)
+- **Kept**: Both directives in `_headers` file where they belong
+- **Impact**: Console error eliminated, Best Practices 1.0 ✅
+
+---
+
 ## [2.2.0] - 2025-10-10
 
 ### 🚀 Major Refactoring: Lighthouse 100 + Modern 2025 Stack

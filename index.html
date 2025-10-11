@@ -7,8 +7,8 @@
   <!-- Modern 2025: Format detection control for better UX -->
   <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
 
-  <!-- Content Security Policy - Strict security (also in _headers for GitHub Pages) -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://t.me; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; frame-ancestors 'none'">
+  <!-- Content Security Policy - Strict security (frame-ancestors only in _headers) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://t.me; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 
   <!-- Robots meta tags -->
   <meta name="robots" content="index, follow">
@@ -146,7 +146,7 @@
   <section class="min-h-screen flex items-center justify-center text-center py-20 px-5 transition-all duration-[600ms]" id="hero" role="banner">
     <div>
       <div class="hero-emoji mb-5 animate-bounce-custom" aria-hidden="true" role="presentation">🎬</div>
-      <h1 class="text-5xl md:text-6xl mb-5 font-bold text-gradient text-balance" fetchpriority="high">CutCraft</h1>
+      <h1 class="text-5xl md:text-6xl mb-5 font-bold text-gradient text-balance">CutCraft</h1>
       <p class="text-2xl md:text-3xl mb-10 text-white text-balance">Генерируй контент с AI в Telegram</p>
       <a href="https://t.me/CutCraftBot" class="cta-button" aria-label="Открыть CutCraft бота в Telegram">
         <span aria-hidden="true">🤖</span> Открыть бота
