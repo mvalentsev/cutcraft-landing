@@ -27,9 +27,9 @@
   --color-accent-hover: #45a049;
   --color-badge-secondary: oklch(0.63 0.12 270 / 0.3);
 
-  /* Glassmorphism with light-dark() theming */
-  --glass-bg: light-dark(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.08));
-  --glass-border: light-dark(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.12));
+  /* Glassmorphism with light-dark() theming (increased opacity for better visibility) */
+  --glass-bg: light-dark(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.12));
+  --glass-border: light-dark(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.2));
   --glass-shadow: light-dark(rgba(31, 38, 135, 0.37), rgba(0, 0, 0, 0.5));
   --glass-hover-shadow: light-dark(rgba(102, 126, 234, 0.4), rgba(102, 126, 234, 0.5));
 
@@ -43,8 +43,8 @@
 @media (prefers-color-scheme: dark) {
   @supports not (color: light-dark(white, black)) {
     :root {
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-bg: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.2);
       --glass-shadow: rgba(0, 0, 0, 0.5);
       --glass-hover-shadow: rgba(102, 126, 234, 0.5);
     }
@@ -103,8 +103,8 @@
 @media (prefers-contrast: more) {
   :root {
     /* Increase contrast for better readability */
-    --glass-bg: rgba(255, 255, 255, 0.2);
-    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.4);
   }
 
   .feature-card,
