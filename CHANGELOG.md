@@ -168,7 +168,7 @@ All notable changes to the CutCraft landing page.
   - **Iteration 1**: Border: 0.18 → 0.25 (light), 0.12 → 0.2 (dark)
   - **Iteration 2**: Border: 0.25 → 0.35 (light), 0.20 → 0.30 (dark)
   - **High contrast**: 0.25 → 0.35 (bg), 0.40 → 0.50 (border)
-- **Scroll Animation Fix (ROOT CAUSE)**:
+- **Scroll Animation Fix (Issue #1)**:
   - **Problem**: Cards blend with background during scroll animation
   - **Cause**: Section `opacity: 0→1` transition multiplied card opacity (0.5 × 0.25 = 0.125)
   - **Solution**:
@@ -176,7 +176,15 @@ All notable changes to the CutCraft landing page.
     - Added `section { opacity: 1 }` default rule
     - Kept only `transform: translateY()` animation
   - **Files**: `src/main.css:79-82` (default), `src/main.css:86-95` (@starting-style), `src/main.css:206-208` (.visible)
-- **Impact**: Cards stay visible at 0.25 opacity during scroll, no transparency flash ✅
+- **Lightning CSS Bug Fix (Issue #2 - CRITICAL)**:
+  - **Problem**: Card backgrounds completely missing after build
+  - **Cause**: Lightning CSS compiles `light-dark()` to invalid syntax
+    - Source: `light-dark(rgba(...), rgba(...))`
+    - Compiled: `var(--lightningcss-light,#fff)var(--lightningcss-dark,#fff)` ← NO SPACE!
+    - Browser cannot parse two `var()` without space
+  - **Solution**: Replace `light-dark()` with simple `rgba(255, 255, 255, 0.25)`
+  - **Files**: `src/main.css:30-36` (variables), `src/main.css:44-45` (removed fallback)
+- **Impact**: Cards fully visible with glassmorphism background ✅
 
 ---
 
