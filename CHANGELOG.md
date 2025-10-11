@@ -171,8 +171,11 @@ All notable changes to the CutCraft landing page.
 - **Scroll Animation Fix (ROOT CAUSE)**:
   - **Problem**: Cards blend with background during scroll animation
   - **Cause**: Section `opacity: 0→1` transition multiplied card opacity (0.5 × 0.25 = 0.125)
-  - **Solution**: Removed `opacity` from section animations, kept only `transform: translateY()`
-  - **Files**: `src/main.css:81-89` (@starting-style), `src/main.css:201-203` (.visible)
+  - **Solution**:
+    - Removed `opacity` from section animations
+    - Added `section { opacity: 1 }` default rule
+    - Kept only `transform: translateY()` animation
+  - **Files**: `src/main.css:79-82` (default), `src/main.css:86-95` (@starting-style), `src/main.css:206-208` (.visible)
 - **Impact**: Cards stay visible at 0.25 opacity during scroll, no transparency flash ✅
 
 ---
