@@ -168,7 +168,12 @@ All notable changes to the CutCraft landing page.
   - **Iteration 1**: Border: 0.18 → 0.25 (light), 0.12 → 0.2 (dark)
   - **Iteration 2**: Border: 0.25 → 0.35 (light), 0.20 → 0.30 (dark)
   - **High contrast**: 0.25 → 0.35 (bg), 0.40 → 0.50 (border)
-- **Impact**: Strong card visibility against gradient background ✅
+- **Scroll Animation Fix (ROOT CAUSE)**:
+  - **Problem**: Cards blend with background during scroll animation
+  - **Cause**: Section `opacity: 0→1` transition multiplied card opacity (0.5 × 0.25 = 0.125)
+  - **Solution**: Removed `opacity` from section animations, kept only `transform: translateY()`
+  - **Files**: `src/main.css:81-89` (@starting-style), `src/main.css:201-203` (.visible)
+- **Impact**: Cards stay visible at 0.25 opacity during scroll, no transparency flash ✅
 
 ---
 
