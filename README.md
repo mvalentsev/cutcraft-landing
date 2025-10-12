@@ -48,7 +48,7 @@ bun run preview
 ## 📁 Structure
 
 ```
-pages-landing/
+cutcraft-landing/
 ├── public/              # Static assets
 │   ├── sw.js           # Service Worker (PWA)
 │   ├── manifest.json   # Web App Manifest
@@ -192,7 +192,7 @@ bun run build && du -sh dist/
 
 ## 🤝 Contributing
 
-Это подпроект pages-landing внутри основного репозитория cutcraft2.
+Это подпроект cutcraft-landing внутри основного репозитория cutcraft2.
 Вся документация (.md файлы) живет здесь.
 
 **Перед коммитом**:

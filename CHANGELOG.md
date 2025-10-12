@@ -1,4 +1,4 @@
-# Changelog - pages-landing
+# Changelog - cutcraft-landing
 
 All notable changes to the CutCraft landing page.
 
